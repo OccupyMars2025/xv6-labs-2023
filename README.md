@@ -12,3 +12,6 @@ xv6 has no ps command, but, if you type Ctrl-p, the kernel will print informatio
 
 To quit qemu type: Ctrl-a x (press Ctrl and a at the same time, followed by x).
 ```
+
+# TODO:
+### https://github.com/takahirox/riscv-rust
