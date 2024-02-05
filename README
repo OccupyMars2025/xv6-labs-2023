@@ -1,0 +1,14 @@
+BUILDING AND RUNNING XV6
+
+You will need a RISC-V "newlib" tool chain from
+https://github.com/riscv/riscv-gnu-toolchain, and qemu compiled for
+riscv64-softmmu.  Once they are installed, and in your shell
+search path, you can run "make qemu".
+
+How to add application examples:
+https://pdos.csail.mit.edu/6.1810/2023/lec/l-overview/
+https://pdos.csail.mit.edu/6.1810/2023/lec/l-overview.txt
+https://pdos.csail.mit.edu/6.1810/2023/schedule.html:  sep 6
+
+step 1: add ex1.c to the "user" directory
+step 2: add "$U/_ex1\" to "UPROGS" in Makefile
