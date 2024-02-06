@@ -32,3 +32,7 @@ but we know address where buf should be
 
 # TODO:
 ### https://github.com/takahirox/riscv-rust
+
+
+# hint:
+## [Oh, and 6.828 students, if you're having trouble with Lab 5, it's probably because of a bug in your Lab 2.](https://blogs.oracle.com/linux/post/the-ksplice-pointer-challenge)
