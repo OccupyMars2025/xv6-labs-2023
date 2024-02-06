@@ -12,6 +12,22 @@
 xv6 has no ps command, but, if you type Ctrl-p, the kernel will print information about each process. If you try it now, you'll see two lines: one for init, and one for sh.
 
 To quit qemu type: Ctrl-a x (press Ctrl and a at the same time, followed by x).
+
+riscv64-linux-gnu-objdump -S user/_cat
+  same as user/cat.asm
+0x0: cat
+  what if we run two cat programs at the same time?
+  see pgtbl lecture
+0x8e: _main
+  user.ld:
+    entry: _main
+what is _main?
+  defined in ulib.c, which calls main() and exit(0)
+where is data memory? (e.g., buf)
+  in data/bss segment
+  must be setup by kernel
+but we know address where buf should be
+  riscv64-linux-gnu-nm -n user/_cat
 ```
 
 # TODO:
