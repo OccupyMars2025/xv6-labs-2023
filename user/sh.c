@@ -3,6 +3,7 @@
 #include "kernel/types.h"
 #include "user/user.h"
 #include "kernel/fcntl.h"
+#include "kernel/stat.h"
 
 // Parsed command representation
 #define EXEC  1
@@ -134,7 +135,33 @@ runcmd(struct cmd *cmd)
 int
 getcmd(char *buf, int nbuf)
 {
-  write(2, "$ ", 2);
+
+
+
+  // ===== start: added by OccupyMars2025
+  /*
+  if standard input (fd=0) is redirected to a file, then don't write "$ "
+  https://pdos.csail.mit.edu/6.1810/2023/labs/util.html
+  xargs
+  $ sh < xargstest.sh
+   The output has many $ because the xv6 shell doesn't realize 
+   it is processing commands 
+   from a file instead of from the console, 
+   and prints a $ for each command in the file.
+  */
+  struct stat st;
+  if(fstat(0, &st) < 0) {
+    fprintf(2, "sh: cannot stat standard input\n");
+    exit(1);
+  }
+  if(st.type == T_DEVICE) { 
+    write(2, "$ ", 2);
+  }
+  // ===== end: added by OccupyMars2025
+  // write(2, "$ ", 2);
+
+
+
   memset(buf, 0, nbuf);
   gets(buf, nbuf);
   if(buf[0] == 0) // EOF
