@@ -30,6 +30,139 @@ but we know address where buf should be
   riscv64-linux-gnu-nm -n user/_cat
 ```
 
+## https://pdos.csail.mit.edu/6.1810/2023/lec/l-os.txt
+
+```
+
+building xv6
+  % make 
+  gcc on each kernel/*.c, .o files, linker, kernel/kernel
+  % ls -l kernel/kernel
+  % more kernel/kernel.asm
+  and produces a disk image containing file system
+  % ls -l fs.img
+
+qemu
+  % make qemu
+  qemu, loads kernel binary into "memory", simulates a disk with fs.img
+  jumps to kernel's first instruction
+  qemu maintains mock hardware registers and RAM, interprets instructions
+
+I'll walk through xv6 booting up, to first process making first system call
+
+% make CPUS=1 qemu-gdb
+% riscv64-unknown-elf-gdb
+(gdb) b *0x80000000
+(gdb) c
+kernel is loaded at 0x80000000 b/c that's where RAM starts
+  lower addresses are device hardware
+% vi kernel/entry.S
+"m mode"
+set up stack for C function calls
+jump to start, which is C code
+
+% vi start.c
+  sets up hardware for interrupts &c
+  changes to supervisor mode
+  jumps to main
+
+(gdb) b main
+(gdb) c
+(gdb) tui enable
+
+main()
+  core 0 sets up a lot of software / hardware
+  other cores wait
+  "next" through first kernel printfs
+
+let's glance at an example of initialization -- kernel memory allocator
+(gdb) step -- into kinit()
+(gdb) step -- into freerange()
+(gdb) step -- into free()
+% vi kernel/kalloc.c
+kinit/freerange find all pages of physical RAM
+  make a list from them
+  threaded through the first 64 bytes of each page
+  [diagram]
+  struct run
+  the cast in kfree()
+  and the list insert
+  a simple allocator, only 4096-byte units, for e.g. user memory
+
+how to get processes going?
+  our goal is to get the first C user-level program running
+    called init (see user/init.c)
+    init starts up everything else (just console sh on xv6)
+  need:
+    struct proc
+    user memory
+    instruction bytes in user memory
+    user registers, at least sp and epc
+  main() does this by calling userinit()
+
+(gdb) b userinit
+(gdb) continue
+
+% vi kernel/proc.c
+allocproc()
+  struct proc
+  p->pagetable
+
+back to userinit()
+
+% vi user/initcode.S
+exec("/init", ...)
+ecall
+a7, SYS_exec
+% vi kernel/syscall.h
+note SYS_exec is number 7
+
+back to userinit()
+
+epc -- where process will start in *user* space
+and sp
+p->state = RUNNABLE
+
+(gdb) b *0x0
+(gdb) c
+(gdb) tui disable
+(gdb) x/10i 0
+
+what's the effect of ecall?
+(gdb) b syscall
+(gdb) c
+back in the kernel
+(gdb) tui enable
+(gdb) n
+(gdb) n
+(gdb) n
+(gdb) print num
+      from saved user register a7
+(gdb) print syscalls[7]
+(gdb) b exec
+(gdb) c
+
+% vi kernel/exec.c
+  a complex system call
+  read file from disk
+  "ELF" format
+  text, data
+  defensive, lots of checks
+  don't be tricked into overwriting kernel memory!
+  allocate stack
+  write arguments onto stack
+  epc = 
+  sp = 
+
+(gdb) c
+
+% vi user/init.c
+  top-level process
+  console file descriptors, 0 and 1
+  sh
+
+```
+
 # TODO:
 ### https://github.com/takahirox/riscv-rust
 
