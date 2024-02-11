@@ -1,6 +1,8 @@
 ## round 2: https://pdos.csail.mit.edu/6.1810/2023/schedule.html
 - [x] (4 days)(2024/2/2 7:30 - 2/6 14:10) sep 6: Introduction and examples
-- [ ] (2024/2/6 14:10 - ) sep 11:  C in xv6, slides, and examples
+- [x] (3 hours)(2024/2/6 14:10 - 17:05) sep 11:  C in xv6, slides, and examples
+- [x] (2024/2/6 17:05 - 2/9 18:00) sep 13: OS design, complete reading chapter 2
+- [ ] (2024/2/9 18:00 - ) sep 13: OS design
 
 ## BUILDING AND RUNNING XV6
 ### You will need a RISC-V "newlib" tool chain from https://github.com/riscv/riscv-gnu-toolchain, and qemu compiled for riscv64-softmmu.  Once they are installed, and in your shell search path, you can run "make qemu".
@@ -164,7 +166,9 @@ back in the kernel
 ```
 
 # TODO:
+### The RISC-V Reader: An Open Architecture Atlas
 ### https://github.com/takahirox/riscv-rust
+
 
 
 # hint:
