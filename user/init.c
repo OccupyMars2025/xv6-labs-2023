@@ -15,7 +15,11 @@ int
 main(void)
 {
   int pid, wpid;
-
+  
+  /**
+   * init creates a new console device file if needed and then opens it as file descriptors 0, 1,
+and 2. Then it starts a shell on the console.
+  */
   if(open("console", O_RDWR) < 0){
     mknod("console", CONSOLE, 0);
     open("console", O_RDWR);

@@ -10,6 +10,14 @@ r_mhartid()
 }
 
 // Machine Status Register, mstatus
+/*
+1.2. Privilege Levels | Page 8,  The RISC-V Instruction Set Manual: Volume II
+Page 8 says: 
+the encoding 00 corresponds to User mode
+the encoding 01 corresponds to Supervisor mode
+the encoding 10 is reserved
+the encoding 11 corresponds to Machine mode
+*/
 
 #define MSTATUS_MPP_MASK (3L << 11) // previous mode.
 #define MSTATUS_MPP_M (3L << 11)
@@ -34,6 +42,8 @@ w_mstatus(uint64 x)
 // machine exception program counter, holds the
 // instruction address to which a return from
 // exception will go.
+// When a trap is taken into M-mode, mepc is written with the virtual address of the instruction that was
+// interrupted or that encountered the exception.
 static inline void 
 w_mepc(uint64 x)
 {
