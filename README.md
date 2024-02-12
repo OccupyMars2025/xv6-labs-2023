@@ -34,6 +34,7 @@ but we know address where buf should be
 ```
 
 # [How to use GDB to debug xv6:](https://pdos.csail.mit.edu/6.1810/2023/lec/l-os.txt)
+# [use gdb](https://pdos.csail.mit.edu/6.1810/2023/labs/gdb.html)
 
 ```
 
