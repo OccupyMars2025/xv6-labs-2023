@@ -32,7 +32,7 @@ where is data memory? (e.g., buf)
 but we know address where buf should be
   riscv64-linux-gnu-nm -n user/_cat
 ```
-
+## Use GDB to help you debug! I know that using GDB is really annoying in the beginning but it is super super helpful in the later labs and we want you all to know the basic commands to make debugging less painful in the future.
 # [How to use GDB to debug xv6:](https://pdos.csail.mit.edu/6.1810/2023/lec/l-os.txt)
 # [use gdb](https://pdos.csail.mit.edu/6.1810/2023/labs/syscall.html)
 # [use gdb](https://pdos.csail.mit.edu/6.1810/2023/labs/gdb.html)
