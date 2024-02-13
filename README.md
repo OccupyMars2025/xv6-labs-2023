@@ -5,6 +5,7 @@
 - [x] (2 days)(2024/2/9 18:00 - 2/11 15:40) sep 13: OS design, lecture
 - [ ] (2024/2/11 15:40 - ) sep 13: OS design, Assignment: Lab syscall: System calls
 
+### In each lab, don't edit the file "README", it is needed, for example in "trace 32 grep hello README", you can add another file "README.md"
 ## BUILDING AND RUNNING XV6
 ### You will need a RISC-V "newlib" tool chain from https://github.com/riscv/riscv-gnu-toolchain, and qemu compiled for riscv64-softmmu.  Once they are installed, and in your shell search path, you can run "make qemu".
 
