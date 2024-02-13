@@ -5,6 +5,10 @@
   - [x] (3 days)(2024/2/6 17:05 - 2/9 18:00) sep 13: OS design, chapter 2
   - [x] (2 days)(2024/2/9 18:00 - 2/11 15:40) sep 13: OS design, lecture
   - [ ] (2024/2/11 15:40 - ) sep 13: OS design, Assignment: Lab syscall: System calls
+    - [x] (3h 23min)Using gdb (easy): 2024/2/12 13:00 - 16:23
+    - [x] (2h 10min)System call tracing (moderate): 2024/2/13 8:30 - 10:40
+    - [ ] Sysinfo (moderate): 2/13 13:10 - 
+
 
 ### In each lab, don't edit the file "README", it is needed, for example in "trace 32 grep hello README", you can add another file "README.md"
 ## BUILDING AND RUNNING XV6
