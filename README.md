@@ -1,9 +1,10 @@
 ## round 2: https://pdos.csail.mit.edu/6.1810/2023/schedule.html
 - [x] (4 days)(2024/2/2 7:30 - 2/6 14:10) sep 6: Introduction and examples
 - [x] (3 hours)(2024/2/6 14:10 - 17:05) sep 11:  C in xv6, slides, and examples
-- [x] (3 days)(2024/2/6 17:05 - 2/9 18:00) sep 13: OS design, chapter 2
-- [x] (2 days)(2024/2/9 18:00 - 2/11 15:40) sep 13: OS design, lecture
-- [ ] (2024/2/11 15:40 - ) sep 13: OS design, Assignment: Lab syscall: System calls
+- [ ] (2024/2/6 17:05 - )sep 13: OS design
+  - [x] (3 days)(2024/2/6 17:05 - 2/9 18:00) sep 13: OS design, chapter 2
+  - [x] (2 days)(2024/2/9 18:00 - 2/11 15:40) sep 13: OS design, lecture
+  - [ ] (2024/2/11 15:40 - ) sep 13: OS design, Assignment: Lab syscall: System calls
 
 ### In each lab, don't edit the file "README", it is needed, for example in "trace 32 grep hello README", you can add another file "README.md"
 ## BUILDING AND RUNNING XV6
