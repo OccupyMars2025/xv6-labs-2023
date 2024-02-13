@@ -1,5 +1,6 @@
 {
     "files.associations": {
         "defs.h": "c"
-    }
+    },
+    "editor.fontSize": 20
 }
