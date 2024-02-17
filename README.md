@@ -8,7 +8,8 @@
     - [x] (3h 23min)Using gdb (easy): 2024/2/12 13:00 - 16:23
     - [x] (2h 10min)System call tracing (moderate): 2024/2/13 8:30 - 10:40
     - [x] (48 min)Sysinfo (moderate): 2/13 13:10 - 13:58
-- [ ] (2/13 13:58 - )sep 18: page tables
+- [ ] (2/13 13:58 - 2/17 10:10)sep 18: page tables
+- [ ] (2/17 10:10 - )	sep 20:GDB Calling conventions
 
 
 ### In each lab, don't edit the file "README", it is needed, for example in "trace 32 grep hello README", you can add another file "README.md"
