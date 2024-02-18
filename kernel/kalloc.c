@@ -28,6 +28,18 @@ kinit()
 {
   initlock(&kmem.lock, "kmem");
   freerange(end, (void*)PHYSTOP);
+
+  // // === start: my test ==========
+  // printf("The free memory:\n");
+  // struct run *r;
+  // acquire(&kmem.lock);
+  // for(r = kmem.freelist; r; r = r->next) {
+  //   printf("%p\n", (void*)r);
+  // }
+  // printf("%p\n", (void*)r);
+  // release(&kmem.lock);
+  // // === end: my test ==========
+
 }
 
 void
