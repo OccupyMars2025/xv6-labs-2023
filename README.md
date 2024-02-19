@@ -14,7 +14,7 @@
 - [ ] (2/17 10:10 - )	sep 20:GDB Calling conventions
   - [x] (2 days)(2/17 10:10 - 2/19 10:30)	complete reading material
   - [ ] (2/19 10:30 -) Lab pgtbl: Page tables
-    - [ ] (2/19 10:30 -) Speed up system calls (easy)
+    - [ ] (2/20 6:25 -) Speed up system calls (easy)
 
 
 
