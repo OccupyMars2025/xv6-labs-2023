@@ -10,6 +10,8 @@
     - [x] (48 min)Sysinfo (moderate): 2/13 13:10 - 13:58
 - [x] (4 days)(2/13 13:58 - 2/17 10:10)sep 18: page tables
 - [ ] (2/17 10:10 - )	sep 20:GDB Calling conventions
+  - [x] (2 days)(2/17 10:10 - 2/19 10:30)	complete reading material
+  - [ ] (2/19 10:30 -) Lab pgtbl: Page tables
 
 
 ### In each lab, don't edit the file "README", it is needed, for example in "trace 32 grep hello README", you can add another file "README.md"
