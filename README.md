@@ -12,6 +12,8 @@
 - [ ] (2/17 10:10 - )	sep 20:GDB Calling conventions
   - [x] (2 days)(2/17 10:10 - 2/19 10:30)	complete reading material
   - [ ] (2/19 10:30 -) Lab pgtbl: Page tables
+    - [ ] (2/19 10:30 -) Speed up system calls (easy)
+
 
 
 ### In each lab, don't edit the file "README", it is needed, for example in "trace 32 grep hello README", you can add another file "README.md"
