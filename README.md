@@ -17,6 +17,8 @@
     - [x] (2h 35min)(2/20 6:25 - 9:00) Speed up system calls (easy)
     - [x] (1h 35min)(2/20 9:00 - 10:35) Print a page table (easy)
     - [x] (2h 40min)(2/20 12:40 - 15:20) Detect which pages have been accessed (hard)
+- [ ] (2024/2/20 15:20 - )sep 25: LEC 6: System call entry/exit
+  - [ ] (2024/2/20 15:20 - ) Read Chapter 4
 
 
 
