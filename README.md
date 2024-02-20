@@ -11,12 +11,12 @@
     - [x] (2h 10min)System call tracing (moderate): 2024/2/13 8:30 - 10:40
     - [x] (48 min)Sysinfo (moderate): 2/13 13:10 - 13:58
 - [x] (4 days)(2/13 13:58 - 2/17 10:10)sep 18: page tables
-- [ ] (2/17 10:10 - )	sep 20:GDB Calling conventions
+- [x] (3 days)(2/17 10:10 - 2/20 15:20)	sep 20:GDB Calling conventions
   - [x] (2 days)(2/17 10:10 - 2/19 10:30)	complete reading material
-  - [ ] (2/19 10:30 -) Lab pgtbl: Page tables
+  - [x] (1 day)(2/19 10:30 - 2/20 15:20) Lab pgtbl: Page tables
     - [x] (2h 35min)(2/20 6:25 - 9:00) Speed up system calls (easy)
     - [x] (1h 35min)(2/20 9:00 - 10:35) Print a page table (easy)
-    - [ ] (2/20 12:40 - ) Detect which pages have been accessed (hard)
+    - [x] (2h 40min)(2/20 12:40 - 15:20) Detect which pages have been accessed (hard)
 
 
 
