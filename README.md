@@ -16,6 +16,8 @@
   - [ ] (2/19 10:30 -) Lab pgtbl: Page tables
     - [x] (2h 35min)(2/20 6:25 - 9:00) Speed up system calls (easy)
     - [x] (1h 35min)(2/20 9:00 - 10:35) Print a page table (easy)
+    - [ ] (2/20 12:40 - ) Detect which pages have been accessed (hard)
+
 
 
 
