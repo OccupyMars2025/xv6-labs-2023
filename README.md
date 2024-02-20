@@ -204,6 +204,14 @@ Process-related code is kernel/proc.h and kernel/proc.c.
 
 ## https://github.com/OccupyMars2025/xv6-riscv
 
+# trap: system call , exception, interrupt
+```
+A trap may occur while executing in user space if the user program makes a system call (ecall 
+instruction), or does something illegal, or if a device interrupts. The high-level path of a trap from
+user space is uservec (kernel/trampoline.S:21), then usertrap (kernel/trap.c:37); and when re-
+turning, usertrapret (kernel/trap.c:90) and then userret (kernel/trampoline.S:101).
+```
+
 # TODO:
 ### The RISC-V Reader: An Open Architecture Atlas
 ### https://github.com/takahirox/riscv-rust
