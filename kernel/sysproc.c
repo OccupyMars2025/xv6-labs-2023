@@ -79,6 +79,10 @@ sys_pgaccess(void)
 
   int len;
   argint(1, &len);
+  if(len > 64) {
+    printf("sys_pgaccess: error: len > 64, you can only check at most 64 pages\n");
+    return -1;
+  }
 
   uint64 mask_address;
   argaddr(2, &mask_address);
@@ -94,6 +98,14 @@ sys_pgaccess(void)
     }
     if((*pte_pointer) & PTE_A) {
       mask |= (1 << i);
+      /*
+      https://pdos.csail.mit.edu/6.1810/2023/labs/pgtbl.html
+
+      Be sure to clear PTE_A after checking if it is set. Otherwise, it won't be possible to 
+      determine if the page was accessed since the last time 
+      pgaccess() was called (i.e., the bit will be set forever).
+      */
+      (*pte_pointer) &= (~(pte_t)PTE_A);
     }
   }
 
