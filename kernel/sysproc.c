@@ -74,7 +74,34 @@ sys_sleep(void)
 int
 sys_pgaccess(void)
 {
-  // lab pgtbl: your code here.
+  uint64 base_address;
+  argaddr(0, &base_address);
+
+  int len;
+  argint(1, &len);
+
+  uint64 mask_address;
+  argaddr(2, &mask_address);
+
+  uint64 mask = 0;
+  struct proc* p = myproc();
+  pte_t* pte_pointer;
+  for(int i = 0; i < len; ++i) {
+    pte_pointer = walk(p->pagetable, base_address + i * PGSIZE, 0);
+    if(0 == pte_pointer) {
+      printf("sys_pgaccess: walk() error !\n");
+      return -1;
+    }
+    if((*pte_pointer) & PTE_A) {
+      mask |= (1 << i);
+    }
+  }
+
+  if(copyout(p->pagetable, mask_address, (char*)(&mask), (len+7)/8) != 0) {
+    printf("sys_pgaccess: copyout() error !\n");
+    return -1;
+  }
+
   return 0;
 }
 #endif

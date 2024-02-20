@@ -26,6 +26,12 @@ int uptime(void);
 int connect(uint32, uint16, uint16);
 #endif
 #ifdef LAB_PGTBL
+/*
+base:  the starting virtual address of the first user page to check
+len:  number of pages to check
+mask: user address to a buffer to store the results into a bitmask (a datastructure that uses one bit per page and 
+    where the first page corresponds to the least significant bit)
+*/
 int pgaccess(void *base, int len, void *mask);
 // usyscall region
 int ugetpid(void);
