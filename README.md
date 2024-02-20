@@ -15,7 +15,7 @@
   - [x] (2 days)(2/17 10:10 - 2/19 10:30)	complete reading material
   - [ ] (2/19 10:30 -) Lab pgtbl: Page tables
     - [x] (2h 35min)(2/20 6:25 - 9:00) Speed up system calls (easy)
-    - [ ] (2/20 9:00 -) Print a page table (easy)
+    - [x] (1h 35min)(2/20 9:00 - 10:35) Print a page table (easy)
 
 
 
