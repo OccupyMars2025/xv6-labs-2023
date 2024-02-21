@@ -19,7 +19,7 @@
     - [x] (2h 40min)(2/20 12:40 - 15:20) Detect which pages have been accessed (hard)
 - [ ] (2024/2/20 15:20 - )sep 25: LEC 6: System call entry/exit
   - [x] (1 day 6h)(2/20 15:20 - 2/21 21:50) Read Chapter 4, except 4.6
-  - [ ] (2/21 21:50 -) lecture
+  - [ ] (2/21 21:50 -) lecture: https://pdos.csail.mit.edu/6.1810/2023/lec/l-internal.txt
 
 
 
