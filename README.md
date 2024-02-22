@@ -17,9 +17,10 @@
     - [x] (2h 35min)(2/20 6:25 - 9:00) Speed up system calls (easy)
     - [x] (1h 35min)(2/20 9:00 - 10:35) Print a page table (easy)
     - [x] (2h 40min)(2/20 12:40 - 15:20) Detect which pages have been accessed (hard)
-- [ ] (2024/2/20 15:20 - )sep 25: LEC 6: System call entry/exit
+- [x] (2 days 25min)(2024/2/20 15:20 - 2/22 15:45)sep 25: LEC 6: System call entry/exit
   - [x] (1 day 6h)(2/20 15:20 - 2/21 21:50) Read Chapter 4, except 4.6
-  - [ ] (2/21 21:50 -) lecture: https://pdos.csail.mit.edu/6.1810/2023/lec/l-internal.txt
+  - [x] (8h 45min)(2/22 7:00 - 2/22 15:45) lecture: https://pdos.csail.mit.edu/6.1810/2023/lec/l-internal.txt
+- [ ] (2024/2/22 15:45 - )sep 27:LEC 7: Page faults
 
 
 
