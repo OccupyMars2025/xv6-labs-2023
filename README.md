@@ -60,6 +60,7 @@ but we know address where buf should be
 # [use gdb](https://pdos.csail.mit.edu/6.1810/2023/labs/guidance.html)
 # [Using the GNU Debugger](https://pdos.csail.mit.edu/6.828/2019/lec/gdb_slides.pdf)
 # [calling convention and debug](https://pdos.csail.mit.edu/6.1810/2023/lec/l-riscv.txt)
+# [gdb: System call entry/exit](https://pdos.csail.mit.edu/6.1810/2023/lec/l-internal.txt)
 
 ```
 
