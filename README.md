@@ -21,7 +21,7 @@
   - [x] (1 day 6h)(2/20 15:20 - 2/21 21:50) Read Chapter 4, except 4.6
   - [x] (8h 45min)(2/22 7:00 - 2/22 15:45) lecture: https://pdos.csail.mit.edu/6.1810/2023/lec/l-internal.txt
 - [ ] (2024/2/22 15:45 - )sep 27:LEC 7: Page faults
-  - [ ] (2024/2/22 15:45 - )Read Section 4.6
+  - [x] (9h)(2024/2/22 15:45 - 2/23 0:24)Read Section 4.6, 4.7
 
 
 
