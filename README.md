@@ -22,6 +22,7 @@
   - [x] (8h 45min)(2/22 7:00 - 2/22 15:45) lecture: https://pdos.csail.mit.edu/6.1810/2023/lec/l-internal.txt
 - [ ] (2024/2/22 15:45 - )sep 27:LEC 7: Page faults
   - [x] (9h)(2024/2/22 15:45 - 2/23 0:24)Read Section 4.6, 4.7
+  - [ ] (2/23 7:20 - ) slides
 
 
 
