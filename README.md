@@ -30,6 +30,7 @@
 
 ## https://github.com/OccupyMars2025/xv6-labs-2023-deprecated
 ## [QEMU: Keys in the character backend multiplexer](https://www.qemu.org/docs/master/system/mux-chardev.html)
+### Ctrl-a c : "Rotate between the frontends", so just use "Ctrl-a c" twice to switch back to the original frontend
 ## useful commands:
 ```
 xv6 has no ps command, but, if you type Ctrl-p, the kernel will print information about each process. If you try it now, you'll see two lines: one for init, and one for sh.
@@ -61,6 +62,7 @@ but we know address where buf should be
 # [Using the GNU Debugger](https://pdos.csail.mit.edu/6.828/2019/lec/gdb_slides.pdf)
 # [calling convention and debug](https://pdos.csail.mit.edu/6.1810/2023/lec/l-riscv.txt)
 # [gdb: System call entry/exit](https://pdos.csail.mit.edu/6.1810/2023/lec/l-internal.txt)
+# Caution: if the interrupts (particularly the timer interrupt) are NOT disabled, then when you debug, the "next" command may take you to some strange location
 ```
 https://pdos.csail.mit.edu/6.1810/2023/lec/l-internal.txt
 use gdb to check system call entry/exit
@@ -92,9 +94,15 @@ $11 = 0x1310 "$ "
 (gdb) break usertrap
 (gdb) c
 
-
-
-
+can we tell that we're in supervisor mode?
+  I don't know a way to find the mode directly.
+but once you execute "ecall" and get to "uservec", you can see the following,
+but actually at this time "satp" still points to the user page table
+(gdb) p (char*)$a1
+$11 = 0x1310 <error: Cannot access memory at address 0x1310>
+(gdb) x/2c $a1
+0x1310:	Cannot access memory at address 0x1310
+(gdb) 
 
 ```
 
