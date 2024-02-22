@@ -61,6 +61,42 @@ but we know address where buf should be
 # [Using the GNU Debugger](https://pdos.csail.mit.edu/6.828/2019/lec/gdb_slides.pdf)
 # [calling convention and debug](https://pdos.csail.mit.edu/6.1810/2023/lec/l-riscv.txt)
 # [gdb: System call entry/exit](https://pdos.csail.mit.edu/6.1810/2023/lec/l-internal.txt)
+```
+https://pdos.csail.mit.edu/6.1810/2023/lec/l-internal.txt
+use gdb to check system call entry/exit
+
+$ make clean
+$ make qemu-gdb
+(you can see "-gdb tcp::26000" in the last line of the output)
+
+(now open a new terminal)
+$ riscv64-unknown-elf-gdb
+(gdb) target remote localhost:26000
+(gdb) file user/_sh
+(gdb) break getcmd
+(gdb) c
+(gdb) info breakpoints
+(gdb) layout split 
+(gdb) b write
+(gdb) x/3i 0xe10
+(gdb) p $a0
+(gdb) p (char*)$a1
+$11 = 0x1310 "$ "
+(gdb) x/2c $a1
+0x1310:	36 '$'	32 ' '
+(gdb) p $a2
+
+(si "ecall", you can see that you get to "uservec")
+
+(gdb) file kernel/kernel
+(gdb) break usertrap
+(gdb) c
+
+
+
+
+
+```
 
 ```
 
