@@ -29,7 +29,7 @@
 ### You will need a RISC-V "newlib" tool chain from https://github.com/riscv/riscv-gnu-toolchain, and qemu compiled for riscv64-softmmu.  Once they are installed, and in your shell search path, you can run "make qemu".
 
 ## https://github.com/OccupyMars2025/xv6-labs-2023-deprecated
-
+## [QEMU: Keys in the character backend multiplexer](https://www.qemu.org/docs/master/system/mux-chardev.html)
 ## useful commands:
 ```
 xv6 has no ps command, but, if you type Ctrl-p, the kernel will print information about each process. If you try it now, you'll see two lines: one for init, and one for sh.
@@ -252,6 +252,7 @@ turning, usertrapret (kernel/trap.c:90) and then userret (kernel/trampoline.S:10
 
 # TODO:
 ## Can you hack xv6-riscv ?
+## Instead of gcc and gdb, can you use LLVM tools to compile and debug xv6-riscv ?
 ### The RISC-V Reader: An Open Architecture Atlas
 ### https://github.com/takahirox/riscv-rust
 
