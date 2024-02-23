@@ -265,6 +265,7 @@ turning, usertrapret (kernel/trap.c:90) and then userret (kernel/trampoline.S:10
 # TODO:
 ## Can you hack xv6-riscv ?
 ## [sep 27, LEC 7: Cool things you can do with virtual memory](https://pdos.csail.mit.edu/6.1810/2023/lec/l-usingvm.pdf)
+## Key idea: Combination of page faults and updating page table is powerful!
 ## Instead of gcc and gdb, can you use LLVM tools to compile and debug xv6-riscv ?
 ### The RISC-V Reader: An Open Architecture Atlas
 ### https://github.com/takahirox/riscv-rust
