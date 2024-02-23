@@ -25,7 +25,8 @@
   - [x] (7h 30min)(2/23 7:20 - 14:50) slides
   - [x] (2h)(2/23 14:50 - 16:50) https://pdos.csail.mit.edu/6.1810/2023/lec/l-pgfaults.txt
   - [ ] (2/23 18:00 - )Lab: traps
-    - [ ] (2/23 19:00 - 2/23 22:00, 2/24 7:40 - )RISC-V assembly (easy)
+    - [x] (3h)(2/23 19:00 - 22:00)RISC-V assembly (easy)
+    - [ ] (2/24 7:40 - ) Backtrace (moderate)
 
 
 
@@ -265,6 +266,7 @@ turning, usertrapret (kernel/trap.c:90) and then userret (kernel/trampoline.S:10
 ```
 # =======================
 # TODO:
+## [Here's a more whimsical description of little- and big-endian](https://www.rfc-editor.org/ien/ien137.txt)
 ## study the source code of Makefile, grade-lab-* and other auxiliary files in each lab
 ## all "Optional challenge exercises" of the labs are NOT done
 ## all exercises on book-xv6-riscv-rev3.pdf are NOT done
