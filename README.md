@@ -24,7 +24,7 @@
   - [x] (9h)(2024/2/22 15:45 - 2/23 0:24)Read Section 4.6, 4.7
   - [x] (7h 30min)(2/23 7:20 - 14:50) slides
   - [x] (2h)(2/23 14:50 - 16:50) https://pdos.csail.mit.edu/6.1810/2023/lec/l-pgfaults.txt
-  - [ ] Lab: traps
+  - [ ] (2/23 18:00 - )Lab: traps
 
 
 
