@@ -262,7 +262,7 @@ instruction), or does something illegal, or if a device interrupts. The high-lev
 user space is uservec (kernel/trampoline.S:21), then usertrap (kernel/trap.c:37); and when re-
 turning, usertrapret (kernel/trap.c:90) and then userret (kernel/trampoline.S:101).
 ```
-
+# =======================
 # TODO:
 ## all "Optional challenge exercises" of the labs are NOT done
 ## all exercises on book-xv6-riscv-rev3.pdf are NOT done
@@ -274,6 +274,7 @@ turning, usertrapret (kernel/trap.c:90) and then userret (kernel/trampoline.S:10
 ### The RISC-V Reader: An Open Architecture Atlas
 ### https://github.com/takahirox/riscv-rust
 
+# =======================
 
 
 # hint:
