@@ -267,6 +267,7 @@ turning, usertrapret (kernel/trap.c:90) and then userret (kernel/trampoline.S:10
 # TODO:
 ## all "Optional challenge exercises" of the labs are NOT done
 ## all exercises on book-xv6-riscv-rev3.pdf are NOT done
+## https://pdos.csail.mit.edu/6.1810/2023/reference.html
 ## [sep 27, LEC 7: Cool things you can do with virtual memory (slides)](https://pdos.csail.mit.edu/6.1810/2023/lec/l-usingvm.pdf)
 ## [sep 27, LEC 7: Cool things you can do with virtual memory ](https://pdos.csail.mit.edu/6.1810/2023/lec/l-pgfaults.txt)
 ### Key idea: Combination of page faults and updating page table is powerful!
