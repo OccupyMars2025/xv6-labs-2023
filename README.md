@@ -22,7 +22,8 @@
   - [x] (8h 45min)(2/22 7:00 - 2/22 15:45) lecture: https://pdos.csail.mit.edu/6.1810/2023/lec/l-internal.txt
 - [ ] (2024/2/22 15:45 - )sep 27:LEC 7: Page faults
   - [x] (9h)(2024/2/22 15:45 - 2/23 0:24)Read Section 4.6, 4.7
-  - [ ] (2/23 7:20 - ) slides
+  - [x] (7h 30min)(2/23 7:20 - 14:50) slides
+  - [ ] (2/23 14:50 - ) https://pdos.csail.mit.edu/6.1810/2023/lec/l-pgfaults.txt
 
 
 
@@ -263,6 +264,7 @@ turning, usertrapret (kernel/trap.c:90) and then userret (kernel/trampoline.S:10
 
 # TODO:
 ## Can you hack xv6-riscv ?
+## [sep 27, LEC 7: Cool things you can do with virtual memory](https://pdos.csail.mit.edu/6.1810/2023/lec/l-usingvm.pdf)
 ## Instead of gcc and gdb, can you use LLVM tools to compile and debug xv6-riscv ?
 ### The RISC-V Reader: An Open Architecture Atlas
 ### https://github.com/takahirox/riscv-rust
