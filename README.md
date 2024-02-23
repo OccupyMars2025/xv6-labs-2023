@@ -23,7 +23,8 @@
 - [ ] (2024/2/22 15:45 - )sep 27:LEC 7: Page faults
   - [x] (9h)(2024/2/22 15:45 - 2/23 0:24)Read Section 4.6, 4.7
   - [x] (7h 30min)(2/23 7:20 - 14:50) slides
-  - [ ] (2/23 14:50 - ) https://pdos.csail.mit.edu/6.1810/2023/lec/l-pgfaults.txt
+  - [x] (2h)(2/23 14:50 - 16:50) https://pdos.csail.mit.edu/6.1810/2023/lec/l-pgfaults.txt
+  - [ ] Lab: traps
 
 
 
@@ -263,9 +264,12 @@ turning, usertrapret (kernel/trap.c:90) and then userret (kernel/trampoline.S:10
 ```
 
 # TODO:
+## all "Optional challenge exercises" of the labs are NOT done
+## all exercises on book-xv6-riscv-rev3.pdf are NOT done
+## [sep 27, LEC 7: Cool things you can do with virtual memory (slides)](https://pdos.csail.mit.edu/6.1810/2023/lec/l-usingvm.pdf)
+## [sep 27, LEC 7: Cool things you can do with virtual memory ](https://pdos.csail.mit.edu/6.1810/2023/lec/l-pgfaults.txt)
+### Key idea: Combination of page faults and updating page table is powerful!
 ## Can you hack xv6-riscv ?
-## [sep 27, LEC 7: Cool things you can do with virtual memory](https://pdos.csail.mit.edu/6.1810/2023/lec/l-usingvm.pdf)
-## Key idea: Combination of page faults and updating page table is powerful!
 ## Instead of gcc and gdb, can you use LLVM tools to compile and debug xv6-riscv ?
 ### The RISC-V Reader: An Open Architecture Atlas
 ### https://github.com/takahirox/riscv-rust
