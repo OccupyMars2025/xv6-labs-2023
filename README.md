@@ -299,6 +299,7 @@ turning, usertrapret (kernel/trap.c:90) and then userret (kernel/trampoline.S:10
 ## [sep 27, LEC 7: Cool things you can do with virtual memory (slides)](https://pdos.csail.mit.edu/6.1810/2023/lec/l-usingvm.pdf)
 ## [sep 27, LEC 7: Cool things you can do with virtual memory ](https://pdos.csail.mit.edu/6.1810/2023/lec/l-pgfaults.txt)
 ### Key idea: Combination of page faults and updating page table is powerful!
+### [Alarm (hard): In this exercise you'll add a feature to xv6 that periodically alerts a process as it uses CPU time. This might be useful for compute-bound processes that want to limit how much CPU time they chew up, or for processes that want to compute but also want to take some periodic action. More generally, you'll be implementing a primitive form of user-level interrupt/fault handlers; you could use something similar to handle page faults in the application, for example.](https://pdos.csail.mit.edu/6.1810/2023/labs/traps.html)
 ## Can you hack xv6-riscv ?
 ## Instead of gcc and gdb, can you use LLVM tools to compile and debug xv6-riscv ?
 ### The RISC-V Reader: An Open Architecture Atlas
