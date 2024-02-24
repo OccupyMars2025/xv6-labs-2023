@@ -100,8 +100,15 @@ struct proc {
   uint64 sz;                   // Size of process memory (bytes)
   pagetable_t pagetable;       // User page table
   struct trapframe *trapframe; // data page for trampoline.S
+  struct trapframe *backup_trapframe; // backup of trapframe, only allocated and used if sigalarm() and sigreturn() are called, freed in sigreturn()
   struct context context;      // swtch() here to run process
   struct file *ofile[NOFILE];  // Open files
   struct inode *cwd;           // Current directory
   char name[16];               // Process name (debugging)
+
+  int ticks; // the alarm interval
+  uint64 user_handler_address; // the user address of the handler function 
+  int elapsed_ticks; 
+  // help prevent re-entrant calls to the handler----if a handler hasn't returned yet, the kernel shouldn't call it again. 
+  int is_executing_alarm_handler; 
 };

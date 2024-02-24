@@ -77,8 +77,30 @@ usertrap(void)
     exit(-1);
 
   // give up the CPU if this is a timer interrupt.
-  if(which_dev == 2)
+  if(which_dev == 2) {
+    // for periodic alarm (see sigalarm(), sigreturn())
+    if((p->ticks > 0) && (p->is_executing_alarm_handler == 0)) {
+      ++(p->elapsed_ticks);
+      if((p->elapsed_ticks) >= (p->ticks)) {
+        p->elapsed_ticks = 0;
+        p->is_executing_alarm_handler = 1;
+        // p->backup_trapframe will be freed and set to 0 in sigreturn()
+        if(0 == (p->backup_trapframe = (struct trapframe*)kalloc())) {
+          panic("usertrap(): when it's time to call the alarm handler periodically, xv6 cannot allocate a physical page to backup trapframe \n");
+        }
+        *(p->backup_trapframe) = *(p->trapframe);
+        /* when returning to user space, we will restore registers from p->trapframe,
+        but other than p->trapframe->epc, many content of p->trapframe is useless
+        for executing the user alarm handler, but are essential for sigreturn() 
+        to return to the original process state when interrupted by the timer,
+        so we backup it in p->backup_trapframe
+        */
+        p->trapframe->epc = p->user_handler_address;
+      }
+    }
+
     yield();
+  }
 
   usertrapret();
 }
