@@ -64,6 +64,13 @@ but we know address where buf should be
 ## Use GDB to help you debug! I know that using GDB is really annoying in the beginning but it is super super helpful in the later labs and we want you all to know the basic commands to make debugging less painful in the future.
 ## it is worth your time to revisit the following tutorials when tracking down kernel bugs. 
 # =======================
+```
+https://pdos.csail.mit.edu/6.1810/2023/labs/traps.html
+
+It will be easier to look at traps with gdb if you tell qemu to use only one CPU, which you can do by running
+    make CPUS=1 qemu-gdb
+```
+# =======================
 # [How to use backtrace](https://pdos.csail.mit.edu/6.1810/2023/labs/traps.html)
 ## Once your backtrace is working, call it from panic in kernel/printf.c so that you see the kernel's backtrace when it panics.
 ```
