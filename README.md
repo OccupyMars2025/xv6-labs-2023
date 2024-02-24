@@ -26,7 +26,7 @@
   - [x] (2h)(2/23 14:50 - 16:50) https://pdos.csail.mit.edu/6.1810/2023/lec/l-pgfaults.txt
   - [ ] (2/23 18:00 - )Lab: traps
     - [x] (3h)(2/23 19:00 - 22:00)RISC-V assembly (easy)
-    - [ ] (2/24 7:40 - 11:20) Backtrace (moderate)
+    - [x] (3h 55min)(2/24 7:40 - 11:20, 11:44 - 11:59) Backtrace (moderate)
 
 
 
@@ -62,6 +62,29 @@ but we know address where buf should be
 ```
 ## Use GDB to help you debug! I know that using GDB is really annoying in the beginning but it is super super helpful in the later labs and we want you all to know the basic commands to make debugging less painful in the future.
 ## it is worth your time to revisit the following tutorials when tracking down kernel bugs. 
+# =======================
+# [How to use backtrace](https://pdos.csail.mit.edu/6.1810/2023/labs/traps.html)
+## Once your backtrace is working, call it from panic in kernel/printf.c so that you see the kernel's backtrace when it panics.
+```
+    backtrace:
+    0x0000000080002cda
+    0x0000000080002bb6
+    0x0000000080002898
+  
+After bttest exit qemu. In a terminal window: run addr2line -e kernel/kernel (or riscv64-unknown-elf-addr2line -e kernel/kernel) and cut-and-paste the addresses from your backtrace, like this:
+    $ addr2line -e kernel/kernel
+    0x0000000080002de2
+    0x0000000080002f4a
+    0x0000000080002bfc
+    Ctrl-D
+  
+You should see something like this:
+    kernel/sysproc.c:74
+    kernel/syscall.c:224
+    kernel/trap.c:85
+```
+
+# =======================
 # [How to use GDB to debug xv6:](https://pdos.csail.mit.edu/6.1810/2023/lec/l-os.txt)
 # [use gdb](https://pdos.csail.mit.edu/6.1810/2023/labs/syscall.html)
 # [use gdb](https://pdos.csail.mit.edu/6.1810/2023/labs/gdb.html)
