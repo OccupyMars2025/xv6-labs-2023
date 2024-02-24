@@ -27,6 +27,7 @@
   - [ ] (2/23 18:00 - )Lab: traps
     - [x] (3h)(2/23 19:00 - 22:00)RISC-V assembly (easy)
     - [x] (3h 55min)(2/24 7:40 - 11:20, 11:44 - 11:59) Backtrace (moderate)
+    - [ ] (2/24 13:10 - ) Alarm (hard)
 
 
 
