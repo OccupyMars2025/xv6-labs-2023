@@ -122,6 +122,8 @@ panic(char *s)
   printf("panic: ");
   printf(s);
   printf("\n");
+
+  backtrace();
   panicked = 1; // freeze uart output from other CPUs
   for(;;)
     ;
@@ -132,4 +134,32 @@ printfinit(void)
 {
   initlock(&pr.lock, "pr");
   pr.locking = 1;
+}
+
+
+/*
+use backtrace() for a kernel stack.
+uservec change sp to a kernel stack, 
+then jump to usertrap() which does not return,
+so the stack frame with the highest virtual address in 
+this kernel stack is for usertrap(), (for this stack frame, stack_high_address_end = fp)
+because usertrap() does not return, so the saved ra in this stack frame
+is meaningless, you don't need to print it
+
+print the saved return address of each stack frame
+*/
+void 
+backtrace(void)
+{
+  printf("backtrace:\n");
+
+  uint64 fp = r_fp();
+  uint64 stack_high_address_end = PGROUNDUP(fp);
+  do
+  {
+    // printf("fp: %p\n", fp);
+    // print the return address of this stack frame
+    printf("%p\n", *((uint64*)(fp-8)));
+    fp = *((uint64*)(fp-16));
+  } while (stack_high_address_end > fp);
 }
