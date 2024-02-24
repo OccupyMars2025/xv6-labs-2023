@@ -267,6 +267,7 @@ turning, usertrapret (kernel/trap.c:90) and then userret (kernel/trampoline.S:10
 # =======================
 # TODO:
 ## [Here's a more whimsical description of little- and big-endian](https://www.rfc-editor.org/ien/ien137.txt)
+## https://gcc.gnu.org/onlinedocs/gcc/Using-Assembly-Language-with-C.html
 ## study the source code of Makefile, grade-lab-* and other auxiliary files in each lab
 ## all "Optional challenge exercises" of the labs are NOT done
 ## all exercises on book-xv6-riscv-rev3.pdf are NOT done
