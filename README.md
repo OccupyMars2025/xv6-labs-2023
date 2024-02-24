@@ -26,7 +26,7 @@
   - [x] (2h)(2/23 14:50 - 16:50) https://pdos.csail.mit.edu/6.1810/2023/lec/l-pgfaults.txt
   - [ ] (2/23 18:00 - )Lab: traps
     - [x] (3h)(2/23 19:00 - 22:00)RISC-V assembly (easy)
-    - [ ] (2/24 7:40 - ) Backtrace (moderate)
+    - [ ] (2/24 7:40 - 11:20) Backtrace (moderate)
 
 
 
