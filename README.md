@@ -32,7 +32,9 @@
   - [ ] (2/24 20:00 - ) slides
 
 
-
+## Q: How to read the source code ?
+## A: Go to each branch, read the commits by OccupyMars2025
+### =====================
 ### In each lab, don't edit the file "README", it is needed, for example in "trace 32 grep hello README", you can add another file "README.md"
 ## BUILDING AND RUNNING XV6
 ### You will need a RISC-V "newlib" tool chain from https://github.com/riscv/riscv-gnu-toolchain, and qemu compiled for riscv64-softmmu.  Once they are installed, and in your shell search path, you can run "make qemu".
