@@ -20,14 +20,14 @@
 - [x] (2 days 25min)(2024/2/20 15:20 - 2/22 15:45)sep 25: LEC 6: System call entry/exit
   - [x] (1 day 6h)(2/20 15:20 - 2/21 21:50) Read Chapter 4, except 4.6
   - [x] (8h 45min)(2/22 7:00 - 2/22 15:45) lecture: https://pdos.csail.mit.edu/6.1810/2023/lec/l-internal.txt
-- [ ] (2024/2/22 15:45 - )sep 27:LEC 7: Page faults
+- [x] (2 days 2h)(2024/2/22 15:45 - 2/24 17:30)sep 27:LEC 7: Page faults
   - [x] (9h)(2024/2/22 15:45 - 2/23 0:24)Read Section 4.6, 4.7
   - [x] (7h 30min)(2/23 7:20 - 14:50) slides
   - [x] (2h)(2/23 14:50 - 16:50) https://pdos.csail.mit.edu/6.1810/2023/lec/l-pgfaults.txt
-  - [ ] (2/23 18:00 - )Lab: traps
+  - [x] (1 day)(2/23 18:00 - 2/24 17:30)Lab: traps
     - [x] (3h)(2/23 19:00 - 22:00)RISC-V assembly (easy)
     - [x] (3h 55min)(2/24 7:40 - 11:20, 11:44 - 11:59) Backtrace (moderate)
-    - [ ] (2/24 13:10 - ) Alarm (hard)
+    - [x] (4h 20min)(2/24 13:10 - 17:30) Alarm (hard)
 
 
 
