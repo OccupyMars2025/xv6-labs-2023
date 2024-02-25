@@ -320,7 +320,7 @@ turning, usertrapret (kernel/trap.c:90) and then userret (kernel/trampoline.S:10
 ## Instead of gcc and gdb, can you use LLVM tools to compile and debug xv6-riscv ?
 ### The RISC-V Reader: An Open Architecture Atlas
 ### https://github.com/takahirox/riscv-rust
-
+## In "oct 2:LEC 8: Q&A labs (slides)", there is some discussion about how Linux implements the features that you implement in xv6.
 # =======================
 
 
