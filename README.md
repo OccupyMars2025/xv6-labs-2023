@@ -74,7 +74,10 @@ It will be easier to look at traps with gdb if you tell qemu to use only one CPU
     make CPUS=1 qemu-gdb
 ```
 # =======================
-# [How to use backtrace](https://pdos.csail.mit.edu/6.1810/2023/labs/traps.html)
+# add the following functions to help debug:
+# 1. print page table
+## https://pdos.csail.mit.edu/6.1810/2023/lec/l-QA1_2.pdf, page 13
+# 2. [How to use backtrace](https://pdos.csail.mit.edu/6.1810/2023/labs/traps.html)
 ## Once your backtrace is working, call it from panic in kernel/printf.c so that you see the kernel's backtrace when it panics.
 ```
     backtrace:
