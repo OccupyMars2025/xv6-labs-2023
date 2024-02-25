@@ -22,3 +22,15 @@ grade:
 
 ```
 ## and in "conf/lab.mk", we have "LAB=pgtbl"
+
+## If you want to check each PTE carefully, you can use check_page_table.py in this branch
+
+## Q: why are XRW = 0 in L2 and L1 PTEs?
+## A: indicate that it is a not a leaf PTE
+
+```
+Goal: efficiently detect which pages have been accessed
+  Idea: exploit hardware page-table walk:
+    it sets PTE_A when page is accessed (read or write)
+    it sets PTE_D when page is written ("made dirty")
+```

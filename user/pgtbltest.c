@@ -52,6 +52,7 @@ void
 pgaccess_test()
 {
   char *buf;
+  // access bits
   unsigned int abits;
   printf("pgaccess_test starting\n");
   testname = "pgaccess_test";
