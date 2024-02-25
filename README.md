@@ -28,9 +28,10 @@
     - [x] (3h)(2/23 19:00 - 22:00)RISC-V assembly (easy)
     - [x] (3h 55min)(2/24 7:40 - 11:20, 11:44 - 11:59) Backtrace (moderate)
     - [x] (4h 20min)(2/24 13:10 - 17:30) Alarm (hard)
-- [ ] (2024/2/24 17:30 -)oct 2: LEC 8: Q&A labs (slides)
+- [x] (23h)(2024/2/24 17:30 - 2/25 16:30)oct 2: LEC 8: Q&A labs (slides)
   - [x] (4h 50min)(2/24 20:00 - 22:20, 2/25 9:30 - 12:00) slides
-  - [ ] (2/25 13:20 - ) LEC 8: Q&A labs 
+  - [x] (3h 10min)(2/25 13:20 - 16:30) LEC 8: Q&A labs
+- [ ] (2024/2/25 16:30 - )oct 4: LEC 9: Device drivers
 
 
 ## Q: How to read the source code ?
