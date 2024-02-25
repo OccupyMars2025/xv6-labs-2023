@@ -29,7 +29,7 @@
     - [x] (3h 55min)(2/24 7:40 - 11:20, 11:44 - 11:59) Backtrace (moderate)
     - [x] (4h 20min)(2/24 13:10 - 17:30) Alarm (hard)
 - [ ] (2024/2/24 17:30 -)oct 2: LEC 8: Q&A labs (slides)
-  - [ ] (2/24 20:00 - 22:20, 2/25 9:30 - ) slides
+  - [x] (4h 50min)(2/24 20:00 - 22:20, 2/25 9:30 - 12:00) slides
 
 
 ## Q: How to read the source code ?
