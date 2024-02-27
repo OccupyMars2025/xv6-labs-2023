@@ -34,6 +34,8 @@
   - [x] (3h 10min)(2/25 13:20 - 16:30) LEC 8: Q&A labs
 - [ ] (2024/2/25 16:30 - )oct 4: LEC 9: Device drivers
   - [x] (1 day 8h)(2/26 8:30 - 2/27 16:30)Read Chapter 5
+  - [ ] (2/27 19:00 - ) Lecture 9: Device drivers
+
 
 
 ## Q: How to read the source code ?
