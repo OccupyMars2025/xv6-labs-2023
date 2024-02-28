@@ -332,7 +332,16 @@ turning, usertrapret (kernel/trap.c:90) and then userret (kernel/trampoline.S:10
 ### https://github.com/takahirox/riscv-rust
 ## In "oct 2:LEC 8: Q&A labs (slides)", there is some discussion about how Linux implements the features that you implement in xv6.
 # =======================
-
+# other OS courses:
+## 2024/2/2 - 3/15: [xv6-riscv](https://github.com/OccupyMars2025/xv6-labs-2023)
+## [Operating Systems: Three Easy Pieces](https://pages.cs.wisc.edu/~remzi/OSTEP/)
+## [Operating Systems (Honor Track) Peking University, 2023 Spring](https://pku-os.github.io/sp23/)
+## https://kaashoek.github.io/65810-2023/
+## https://pdos.csail.mit.edu/6.824/
+## https://web.mit.edu/6.033/www/
+## MIT course: 6.1910 (6.004)
+## https://rcore-os.cn/rCore-Tutorial-Book-v3/index.html
+# =======================
 
 # hint:
 ## [Oh, and 6.828 students, if you're having trouble with Lab 5, it's probably because of a bug in your Lab 2.](https://blogs.oracle.com/linux/post/the-ksplice-pointer-challenge)
