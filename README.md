@@ -1,5 +1,8 @@
 ## (failure: I was forced to stop fighting)2023/11/9 - 12/2: Concentrate my firepower and the first battle begins
 ## 2024/2/2: Concentrate my firepower and the second battle begins
+# ===============================
+
+
 ## TODO: After learning this course, design your own OS from scratch. Can your operating system run on multiple platforms to adapt to the IoT era ?
 ## https://pdos.csail.mit.edu/6.1810/2023/schedule.html
 ## [related resources on csdiy](https://csdiy.wiki/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/MIT6.S081/)
