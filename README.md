@@ -122,7 +122,7 @@ You should see something like this:
 # [gdb: System call entry/exit](https://pdos.csail.mit.edu/6.1810/2023/lec/l-internal.txt)
 # Caution: if the interrupts (particularly the timer interrupt) are NOT disabled, then when you debug, the "next" command may take you to some strange location
 # [use gdb to debug interrupt process](https://pdos.csail.mit.edu/6.1810/2023/lec/l-interrupt.txt)
-## use "(gdb) watch cons" to see the changes in "cons",  use "(gdb) watch uart_tx_buf" 
+# very useful: use "(gdb) watch cons" and "(gdb) watch uart_tx_buf" to see the changes in "cons" and "uart_tx_buf", you can see how "you keystroke", "console" and "uart" interact with each other
 ```
 https://pdos.csail.mit.edu/6.1810/2023/lec/l-internal.txt
 use gdb to check system call entry/exit
