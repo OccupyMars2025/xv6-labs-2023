@@ -90,6 +90,7 @@ It will be easier to look at traps with gdb if you tell qemu to use only one CPU
 ## https://pdos.csail.mit.edu/6.1810/2023/lec/l-QA1_2.pdf, page 13
 ## https://pdos.csail.mit.edu/6.1810/2023/labs/pgtbl.html
 # 2. [backtrace](https://github.com/OccupyMars2025/xv6-labs-2023/commit/bc1a1cbdec7abf75a3d167c1318c41cff885bf34)
+## gdb has "backtrace" command in itself, you don't need to add it
 ## https://pdos.csail.mit.edu/6.1810/2023/labs/traps.html
 ## Once your backtrace is working, call it from panic in kernel/printf.c so that you see the kernel's backtrace when it panics.
 ```
