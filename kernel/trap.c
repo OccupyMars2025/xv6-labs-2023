@@ -183,6 +183,7 @@ devintr()
      (scause & 0xff) == 9){
     // this is a supervisor external interrupt, via PLIC.
 
+    // interrupt request (IRQ)
     // irq indicates which device interrupted.
     int irq = plic_claim();
 

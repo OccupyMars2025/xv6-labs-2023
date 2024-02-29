@@ -535,6 +535,12 @@ forkret(void)
   usertrapret();
 }
 
+/*
+2024/2/26 14:32:
+OccupyMars2025 guesses that "chan" may mean "change", 
+so once the value in the variable "chan" is changed, 
+the process will be waken up ???
+*/
 // Atomically release lock and sleep on chan.
 // Reacquires lock when awakened.
 void
