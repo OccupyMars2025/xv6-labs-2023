@@ -343,6 +343,15 @@ typedef uint64 *pagetable_t; // 512 PTEs
 #define PTE_W (1L << 2)
 #define PTE_X (1L << 3)
 #define PTE_U (1L << 4) // user can access
+/*
+The RSW field is reserved for use by supervisor software.
+When implementing COW fork, in uvmcopy(), I store the original
+PTE_W bit value in the PTE_RSW_8 bit. I set PTE_RSW_9 bit in the
+PTE to indicate that the physical page that this PTE points to is 
+now a COW physical page.
+*/
+#define PTE_RSW_9 (1L << 9) 
+#define PTE_RSW_8 (1L << 8) 
 
 // shift a physical address to the right place for a PTE.
 #define PA2PTE(pa) ((((uint64)pa) >> 12) << 10)

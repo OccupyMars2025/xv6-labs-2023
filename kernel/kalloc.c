@@ -9,6 +9,8 @@
 #include "riscv.h"
 #include "defs.h"
 
+int reference_count_of_pages[PHYSTOP >> 12];
+
 void freerange(void *pa_start, void *pa_end);
 
 extern char end[]; // first address after kernel.
@@ -23,11 +25,18 @@ struct {
   struct run *freelist;
 } kmem;
 
+// #define TOTAL_NUM_OF_FREE_PAGES ((PGROUNDDOWN(PHYSTOP) - PGROUNDUP((uint64)end)) / PGSIZE)
+// uint64 *reference_count_of_pages;
+
 void
 kinit()
 {
   initlock(&kmem.lock, "kmem");
   freerange(end, (void*)PHYSTOP);
+  // uint64 *reference_count_of_pages = (uint64*)kalloc();
+  // if(sizeof(uint64) * TOTAL_NUM_OF_FREE_PAGES > PGSIZE) {
+  //   panic("kinit(): one page is not large enough to contain the whole reference_count_of_pages array !\n");
+  // }
 }
 
 void
@@ -60,6 +69,8 @@ kfree(void *pa)
   r->next = kmem.freelist;
   kmem.freelist = r;
   release(&kmem.lock);
+
+  reference_count_of_pages[((uint64)pa) >> 12] = 0;
 }
 
 // Allocate one 4096-byte page of physical memory.
@@ -76,7 +87,9 @@ kalloc(void)
     kmem.freelist = r->next;
   release(&kmem.lock);
 
-  if(r)
+  if(r) {
     memset((char*)r, 5, PGSIZE); // fill with junk
+    reference_count_of_pages[((uint64)r) >> 12] = 0;
+  }
   return (void*)r;
 }

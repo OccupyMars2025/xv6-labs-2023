@@ -163,6 +163,9 @@ mappages(pagetable_t pagetable, uint64 va, uint64 size, uint64 pa, int perm)
     if(*pte & PTE_V)
       panic("mappages: remap");
     *pte = PA2PTE(pa) | perm | PTE_V;
+    if((*pte) & PTE_RSW_9) {
+      ++(reference_count_of_pages[(*pte) >> 10]);
+    }
     if(a == last)
       break;
     a += PGSIZE;
@@ -193,6 +196,13 @@ uvmunmap(pagetable_t pagetable, uint64 va, uint64 npages, int do_free)
     if(do_free){
       uint64 pa = PTE2PA(*pte);
       kfree((void*)pa);
+    }
+    if((*pte) & PTE_RSW_9) {
+      --(reference_count_of_pages[(*pte) >> 10]);
+      if(reference_count_of_pages[(*pte) >> 10] < 1) {
+        uint64 pa = PTE2PA(*pte);
+        kfree((void*)pa);       
+      }
     }
     *pte = 0;
   }
@@ -315,27 +325,36 @@ uvmcopy(pagetable_t old, pagetable_t new, uint64 sz)
   pte_t *pte;
   uint64 pa, i;
   uint flags;
-  char *mem;
+  // char *mem;
 
   for(i = 0; i < sz; i += PGSIZE){
     if((pte = walk(old, i, 0)) == 0)
       panic("uvmcopy: pte should exist");
     if((*pte & PTE_V) == 0)
       panic("uvmcopy: page not present");
+    (*pte) |= PTE_RSW_9;
+    // store the original PTE_W bit value
+    if((*pte) & PTE_W) {
+      (*pte) |= PTE_RSW_8;
+    } else {
+      (*pte) &= (~PTE_RSW_8);
+    }
+    (*pte) &= (~PTE_W);
     pa = PTE2PA(*pte);
     flags = PTE_FLAGS(*pte);
-    if((mem = kalloc()) == 0)
-      goto err;
-    memmove(mem, (char*)pa, PGSIZE);
-    if(mappages(new, i, PGSIZE, (uint64)mem, flags) != 0){
-      kfree(mem);
+    // if((mem = kalloc()) == 0)
+    //   goto err;
+    // memmove(mem, (char*)pa, PGSIZE);
+    if(mappages(new, i, PGSIZE, pa, flags) != 0){
+      // kfree(mem);
       goto err;
     }
+    // ++(reference_count_of_pages[pa >> 12]);
   }
   return 0;
 
  err:
-  uvmunmap(new, 0, i / PGSIZE, 1);
+  uvmunmap(new, 0, i / PGSIZE, 0);
   return -1;
 }
 
@@ -366,9 +385,35 @@ copyout(pagetable_t pagetable, uint64 dstva, char *src, uint64 len)
     if(va0 >= MAXVA)
       return -1;
     pte = walk(pagetable, va0, 0);
-    if(pte == 0 || (*pte & PTE_V) == 0 || (*pte & PTE_U) == 0 ||
-       (*pte & PTE_W) == 0)
+    if(pte == 0 || (*pte & PTE_V) == 0 || (*pte & PTE_U) == 0)
       return -1;
+
+    // ======== start: handle COW page ========
+    if((*pte & PTE_W) == 0) {
+      if(!((*pte & PTE_RSW_9) &&
+           (*pte & PTE_RSW_8))) {
+        return -1;
+      }
+      void *new_physical_page;
+      if((new_physical_page = kalloc()) == 0) {
+        panic("copyout(): kalloc() failed!\n");
+      } else {
+        // it is a COW page and originally it is writeable, and kalloc() succeeds
+        void *old_physical_page = (void*)PTE2PA(*pte);
+        memmove(new_physical_page, old_physical_page, PGSIZE);
+        (*pte) &= (~PTE_RSW_9);
+        (*pte) &= (~PTE_RSW_8);
+        (*pte) |= PTE_W;
+        (*pte) = PA2PTE((uint64)(new_physical_page)) | PTE_FLAGS((*pte));
+        --(reference_count_of_pages[((uint64)old_physical_page) >> 12]);
+        if(reference_count_of_pages[((uint64)old_physical_page) >> 12] < 1) {
+          kfree(old_physical_page);
+        }
+        ++(reference_count_of_pages[((uint64)new_physical_page) >> 12]);
+      }
+    }
+    // ======== end: handle COW page ========
+
     pa0 = PTE2PA(*pte);
     n = PGSIZE - (dstva - va0);
     if(n > len)

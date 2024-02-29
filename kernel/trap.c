@@ -65,6 +65,41 @@ usertrap(void)
     intr_on();
 
     syscall();
+  } else if(r_scause() == 15 || r_scause() == 7) {
+    // exception: Store/AMO page fault
+    /*
+    what't the difference between it and "Store/AMO access fault" ???
+    */
+    void* new_physical_page;
+    pte_t *pte = walk(p->pagetable, r_stval(), 0);
+    if(pte == 0) {
+      panic("usertrap: pte should exist");
+    }
+    if((*pte & PTE_V) == 0) {
+      panic("usertrap: page not present");
+    }
+    if((((*pte) & PTE_RSW_9) == 0) ||
+       (((*pte) & PTE_RSW_8) == 0)) {
+      // printf("usertrap(): 'Store/AMO page fault' occurs!\n");
+      // printf("            unexpected scause %p pid=%d\n", r_scause(), p->pid);
+      // printf("            sepc=%p stval=%p\n", r_sepc(), r_stval());
+      setkilled(p);
+    } else if((new_physical_page = kalloc()) == 0) {
+      // printf("usertrap(): kalloc() failed !\n");
+      setkilled(p);
+    } else {
+      // it is a COW page and originally it is writeable, and kalloc() succeeds
+      void *old_physical_page = (void*)PTE2PA(*pte);
+      memmove(new_physical_page, old_physical_page, PGSIZE);
+      (*pte) &= (~PTE_RSW_9);
+      (*pte) &= (~PTE_RSW_8);
+      (*pte) |= PTE_W;
+      (*pte) = PA2PTE((uint64)(new_physical_page)) | PTE_FLAGS((*pte));
+      --(reference_count_of_pages[((uint64)old_physical_page) >> 12]);
+      if(reference_count_of_pages[((uint64)old_physical_page) >> 12] < 1) {
+        kfree(old_physical_page);
+      }
+    }
   } else if((which_dev = devintr()) != 0){
     // ok
   } else {
