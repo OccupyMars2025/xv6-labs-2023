@@ -41,6 +41,7 @@
   - [x] (1 day 8h)(2/26 8:30 - 2/27 16:30)Read Chapter 5
   - [x] (2/27 19:00 - 2/29 15:50) Lecture 9: Device drivers
   - [ ] (2/29 15:50 -) Lab: Copy-on-Write Fork for xv6
+    - [ ] (2/29 22:40) https://github.com/OccupyMars2025/xv6-labs-2023/issues/9
 
 
 
