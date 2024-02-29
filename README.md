@@ -121,6 +121,7 @@ You should see something like this:
 # [gdb: System call entry/exit](https://pdos.csail.mit.edu/6.1810/2023/lec/l-internal.txt)
 # Caution: if the interrupts (particularly the timer interrupt) are NOT disabled, then when you debug, the "next" command may take you to some strange location
 # [use gdb to debug interrupt process](https://pdos.csail.mit.edu/6.1810/2023/lec/l-interrupt.txt)
+## use "(gdb) watch cons" to see the changes in cons
 ```
 https://pdos.csail.mit.edu/6.1810/2023/lec/l-internal.txt
 use gdb to check system call entry/exit
