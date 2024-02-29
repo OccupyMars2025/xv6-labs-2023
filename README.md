@@ -120,6 +120,7 @@ You should see something like this:
 # [calling convention and debug](https://pdos.csail.mit.edu/6.1810/2023/lec/l-riscv.txt)
 # [gdb: System call entry/exit](https://pdos.csail.mit.edu/6.1810/2023/lec/l-internal.txt)
 # Caution: if the interrupts (particularly the timer interrupt) are NOT disabled, then when you debug, the "next" command may take you to some strange location
+# [use gdb to debug interrupt process](https://pdos.csail.mit.edu/6.1810/2023/lec/l-interrupt.txt)
 ```
 https://pdos.csail.mit.edu/6.1810/2023/lec/l-internal.txt
 use gdb to check system call entry/exit
