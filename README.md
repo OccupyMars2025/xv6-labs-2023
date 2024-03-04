@@ -37,11 +37,12 @@
 - [x] (23h)(2024/2/24 17:30 - 2/25 16:30)oct 2: LEC 8: Q&A labs (slides)
   - [x] (4h 50min)(2/24 20:00 - 22:20, 2/25 9:30 - 12:00) slides
   - [x] (3h 10min)(2/25 13:20 - 16:30) LEC 8: Q&A labs
-- [ ] (2024/2/25 16:30 - )oct 4: LEC 9: Device drivers
+- [x] (2024/2/25 16:30 - )oct 4: LEC 9: Device drivers
   - [x] (1 day 8h)(2/26 8:30 - 2/27 16:30)Read Chapter 5
   - [x] (2/27 19:00 - 2/29 15:50) Lecture 9: Device drivers
-  - [ ] (2/29 15:50 -) Lab: Copy-on-Write Fork for xv6
-    - [ ] (2/29 22:40) https://github.com/OccupyMars2025/xv6-labs-2023/issues/9
+  - [x] (2/29 15:50 -) Lab: Copy-on-Write Fork for xv6
+    - [x] (2/29 22:40) bug: https://github.com/OccupyMars2025/xv6-labs-2023/issues/9
+    - [x] (3/4 7:00 - 15:20) complete this lab successfully
 
 
 
