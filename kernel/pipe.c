@@ -121,6 +121,8 @@ piperead(struct pipe *pi, uint64 addr, int n)
     if(pi->nread == pi->nwrite)
       break;
     ch = pi->data[pi->nread++ % PIPESIZE];
+    // printf("%d\n", ch);
+    // printf("user memory: %p\n", pr->sz);
     if(copyout(pr->pagetable, addr + i, &ch, 1) == -1)
       break;
   }

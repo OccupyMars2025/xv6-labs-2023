@@ -158,14 +158,15 @@ mappages(pagetable_t pagetable, uint64 va, uint64 size, uint64 pa, int perm)
   a = va;
   last = va + size - PGSIZE;
   for(;;){
+    /*
+    potential risk: what if walking one virtual page fails, 
+    what to do about those previous virtual pages that have been walked successfully ???
+    */
     if((pte = walk(pagetable, a, 1)) == 0)
       return -1;
     if(*pte & PTE_V)
       panic("mappages: remap");
     *pte = PA2PTE(pa) | perm | PTE_V;
-    if((*pte) & PTE_RSW_9) {
-      ++(reference_count_of_pages[(*pte) >> 10]);
-    }
     if(a == last)
       break;
     a += PGSIZE;
@@ -193,16 +194,15 @@ uvmunmap(pagetable_t pagetable, uint64 va, uint64 npages, int do_free)
       panic("uvmunmap: not mapped");
     if(PTE_FLAGS(*pte) == PTE_V)
       panic("uvmunmap: not a leaf");
-    if(do_free){
-      uint64 pa = PTE2PA(*pte);
-      kfree((void*)pa);
-    }
     if((*pte) & PTE_RSW_9) {
       --(reference_count_of_pages[(*pte) >> 10]);
       if(reference_count_of_pages[(*pte) >> 10] < 1) {
         uint64 pa = PTE2PA(*pte);
         kfree((void*)pa);       
       }
+    } else if(do_free) {
+      uint64 pa = PTE2PA(*pte);
+      kfree((void*)pa);
     }
     *pte = 0;
   }
@@ -332,14 +332,17 @@ uvmcopy(pagetable_t old, pagetable_t new, uint64 sz)
       panic("uvmcopy: pte should exist");
     if((*pte & PTE_V) == 0)
       panic("uvmcopy: page not present");
-    (*pte) |= PTE_RSW_9;
-    // store the original PTE_W bit value
-    if((*pte) & PTE_W) {
-      (*pte) |= PTE_RSW_8;
-    } else {
-      (*pte) &= (~PTE_RSW_8);
+    // when a process fork() the second time, the following "if" statement can be skipped
+    if(((*pte) & PTE_RSW_9) == 0) {
+      (*pte) |= PTE_RSW_9;
+      // store the original PTE_W bit value
+      if((*pte) & PTE_W) {
+        (*pte) |= PTE_RSW_8;
+      } else {
+        (*pte) &= (~PTE_RSW_8);
+      }
+      (*pte) &= (~PTE_W);
     }
-    (*pte) &= (~PTE_W);
     pa = PTE2PA(*pte);
     flags = PTE_FLAGS(*pte);
     // if((mem = kalloc()) == 0)
@@ -349,7 +352,7 @@ uvmcopy(pagetable_t old, pagetable_t new, uint64 sz)
       // kfree(mem);
       goto err;
     }
-    // ++(reference_count_of_pages[pa >> 12]);
+    ++(reference_count_of_pages[pa >> 12]);
   }
   return 0;
 
@@ -405,11 +408,10 @@ copyout(pagetable_t pagetable, uint64 dstva, char *src, uint64 len)
         (*pte) &= (~PTE_RSW_8);
         (*pte) |= PTE_W;
         (*pte) = PA2PTE((uint64)(new_physical_page)) | PTE_FLAGS((*pte));
-        --(reference_count_of_pages[((uint64)old_physical_page) >> 12]);
-        if(reference_count_of_pages[((uint64)old_physical_page) >> 12] < 1) {
+        int ref_count = --(reference_count_of_pages[((uint64)old_physical_page) >> 12]);
+        if(ref_count < 1) {
           kfree(old_physical_page);
         }
-        ++(reference_count_of_pages[((uint64)new_physical_page) >> 12]);
       }
     }
     // ======== end: handle COW page ========

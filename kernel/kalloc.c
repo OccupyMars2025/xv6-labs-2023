@@ -70,7 +70,7 @@ kfree(void *pa)
   kmem.freelist = r;
   release(&kmem.lock);
 
-  reference_count_of_pages[((uint64)pa) >> 12] = 0;
+  reference_count_of_pages[((uint64)pa) / PGSIZE] = 0;
 }
 
 // Allocate one 4096-byte page of physical memory.
@@ -89,7 +89,7 @@ kalloc(void)
 
   if(r) {
     memset((char*)r, 5, PGSIZE); // fill with junk
-    reference_count_of_pages[((uint64)r) >> 12] = 0;
+    reference_count_of_pages[((uint64)r) >> 12] = 1;
   }
   return (void*)r;
 }

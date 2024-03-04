@@ -112,6 +112,7 @@ fileread(struct file *f, uint64 addr, int n)
     return -1;
 
   if(f->type == FD_PIPE){
+    // printf("fileread(): addr=%p, n=%d\n", addr, n);
     r = piperead(f->pipe, addr, n);
   } else if(f->type == FD_DEVICE){
     if(f->major < 0 || f->major >= NDEV || !devsw[f->major].read)

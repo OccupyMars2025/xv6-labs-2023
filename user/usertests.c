@@ -2144,7 +2144,7 @@ kernmem(char *s)
 // user code should not be able to write to addresses above MAXVA.
 void
 MAXVAplus(char *s)
-{
+{ 
   volatile uint64 a = MAXVA;
   for( ; a != 0; a <<= 1){
     int pid;

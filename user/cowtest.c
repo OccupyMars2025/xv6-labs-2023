@@ -172,7 +172,7 @@ filetest()
   if(buf[0] != 99){
     printf("error: child overwrote parent\n");
     exit(1);
-  }
+  } 
 
   printf("ok\n");
 }
