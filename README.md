@@ -1,5 +1,5 @@
-## (failure: I was forced to stop fighting)2023/11/9 - 12/2: Concentrate my firepower and the first battle begins
-## 2024/2/2: Concentrate my firepower and the second battle begins
+## 2023/11/9 - 12/2: round 1
+## 2024/2/2: round 2
 # ===============================
 
 
