@@ -43,9 +43,13 @@
   - [x] (2/29 15:50 - 3/4 15:20) Lab: Copy-on-Write Fork for xv6
     - [x] (2/29 22:40) bug: https://github.com/OccupyMars2025/xv6-labs-2023/issues/9
     - [x] (3/4 7:00 - 15:20) complete this lab successfully
-- [ ] (3/4 15:20 -) oct 11: LEC 10: Locking
-  - [ ] (3/4 17:00 - ) read chapter 6: Locking
-
+# ============================
+- [x] (3/4 15:20 - 3/16 7:30) oct 11: LEC 10: Locking
+  - [x] (3/4 17:00 - 3/15 18:00) read chapter 6: Locking
+  - [x] (3/15 18:00 - 3/16 7:30) lecture, Locking
+# ============================
+- [ ] (3/16 7:30 - )  oct 16, LEC 11 (rtm): Scheduling 1
+  - [ ] (3/16 7:30 - ) Read "Chapter 7: Scheduling" through Section 7.4
 
 
 ## Q: How to read the source code ?
