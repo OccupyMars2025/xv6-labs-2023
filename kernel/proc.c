@@ -536,10 +536,14 @@ forkret(void)
 }
 
 /*
-2024/2/26 14:32:
-OccupyMars2025 guesses that "chan" may mean "change", 
-so once the value in the variable "chan" is changed, 
-the process will be waken up ???
+https://pdos.csail.mit.edu/6.1810/2023/xv6/book-riscv-rev3.pdf
+page 76
+
+sleep(chan) sleeps on the arbitrary value
+chan, called the wait channel. sleep puts the calling process to sleep, releasing the CPU for other
+work. wakeup(chan) wakes all processes sleeping on chan (if any), causing their sleep calls to
+return. If no processes are waiting on chan, wakeup does nothing.
+
 */
 // Atomically release lock and sleep on chan.
 // Reacquires lock when awakened.
