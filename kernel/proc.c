@@ -441,6 +441,18 @@ wait(uint64 addr)
 //  - swtch to start running that process.
 //  - eventually that process transfers control
 //    via swtch back to the scheduler.
+/*
+Q: can we get rid of the separate per-cpu scheduler thread?
+   could sched() directly swtch() to a new thread?
+   that would be faster -- avoids one of the swtch() calls
+   we'd move scheduler()'s loop into sched()
+   maybe -- but:
+     scheduling loop would run in sched() on a thread's kernel stack
+     what if that thread is exiting?
+     what if another cpu wants to run the thread?
+     what if there are fewer threads than CPUs -- i.e. too few stacks?
+     can be dealt with -- give it a try!
+*/
 void
 scheduler(void)
 {
@@ -452,6 +464,14 @@ scheduler(void)
     // The most recent process to run may have had interrupts
     // turned off; enable them to avoid a deadlock if all
     // processes are waiting.
+    /*
+    Q: why does scheduler() enable interrupts, with intr_on()?
+   There may be no RUNNABLE threads
+     They may all be waiting for I/O, e.g. disk or console
+   Enable interrupts so device has a chance to signal completion
+     and thus wake up a thread
+   Otherwise, system will freeze
+    */
     intr_on();
 
     for(p = proc; p < &proc[NPROC]; p++) {
@@ -480,6 +500,16 @@ scheduler(void)
 // be proc->intena and proc->noff, but that would
 // break in the few places where a lock is held but
 // there's no process.
+/*
+Q: why does sched() comment say only p->lock can be held?
+   suppose process P1, holding lock L1, yields CPU
+   process P2 runs, calls acquire(L1)
+   P2's acquire spins with interrupts turned off
+     so timer interrupts won't occur
+     so P2 won't yield the CPU
+     so P1 can't execute
+     so P1 won't release L1, ever
+*/
 void
 sched(void)
 {
