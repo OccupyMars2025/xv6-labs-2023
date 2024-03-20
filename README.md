@@ -49,7 +49,8 @@
   - [x] (3/15 18:00 - 3/16 7:30) lecture, Locking
 # ============================
 - [ ] (3/16 7:30 - )  oct 16, LEC 11 (rtm): Scheduling 1
-  - [ ] (3/16 7:30 - ) Read "Chapter 7: Scheduling" through Section 7.4
+  - [x] (3/16 7:30 - 3/19 18:00) Read "Chapter 7: Scheduling" through Section 7.4
+  - [ ] (3/19 18:00 - ) lecture 11 (rtm): Scheduling 1
 
 
 ## Q: How to read the source code ?
