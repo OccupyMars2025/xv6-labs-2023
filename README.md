@@ -48,10 +48,10 @@
   - [x] (3/4 17:00 - 3/15 18:00) read chapter 6: Locking
   - [x] (3/15 18:00 - 3/16 7:30) lecture, Locking
 # ============================
-- [ ] (3/16 7:30 - )  oct 16, LEC 11 (rtm): Scheduling 1
-  - [x] (3/16 7:30 - 3/19 18:00) Read "Chapter 7: Scheduling" through Section 7.4
-  - [ ] (3/19 18:00 - ) lecture 11 (rtm): Scheduling 1
-
+- [x] (3/16 7:30 - )  oct 16, LEC 11 (rtm): Scheduling 1
+  - [x] (3/16 7:30 - 3/19 18:00) Read "Chapter 7: Scheduling" 
+  - [x] (3/19 18:00 - 3/20 9:40) lecture 11 (rtm): Scheduling 1
+- [ ] (3/20 9:40 - ) LEC 12 (rtm): Coordination, code
 
 ## Q: How to read the source code ?
 ## A: Go to each branch, read the commits by OccupyMars2025
