@@ -1,0 +1,17 @@
+https://pdos.csail.mit.edu/6.1810/2023/labs/thread.html
+
+notxv6/ph.c
+
+Why are there missing keys with 2 threads, but not with 1 thread? 
+Identify a sequence of events with 2 threads that can lead to a key being missing. 
+Submit your sequence with a short explanation in answers-thread.txt.
+
+Answer: 
+In  insert(key, value, &table[i], table[i]);
+when there are 2 threads, the following sequence of events can occur:
+e1->next = table[i];
+e2->next = table[i];
+table[i] = e1;
+table[i] = e2;
+
+so struct entry "e1" is missing
