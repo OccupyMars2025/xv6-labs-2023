@@ -55,7 +55,8 @@
   - [x] (3/20 9:40 - 19:40) Lecture 12: Coordination (sleep&wakeup)
   - [ ] (3/20 19:40 - ) Lab: Multithreading
     - [x] (3/20 19:40 - 3/21 15:40) Uthread: switching between threads (moderate)
-    - [ ] (3/21 15:40 - ) Using threads (moderate)
+    - [x] (3/21 15:40 - 19:40) Using threads (moderate)
+    - [ ] (3/21 19:40 - ) Barrier(moderate)
 
 ## Q: How to read the source code ?
 ## A: Go to each branch, read the commits by OccupyMars2025
