@@ -43,7 +43,7 @@
   - [x] (2/29 15:50 - 3/4 15:20) Lab: Copy-on-Write Fork for xv6
     - [x] (2/29 22:40) bug: https://github.com/OccupyMars2025/xv6-labs-2023/issues/9
     - [x] (3/4 7:00 - 15:20) complete this lab successfully
-# ============================
+# ========== why so slow ==================
 - [x] (3/4 15:20 - 3/16 7:30) oct 11: LEC 10: Locking
   - [x] (3/4 17:00 - 3/15 18:00) read chapter 6: Locking
   - [x] (3/15 18:00 - 3/16 7:30) lecture, Locking
@@ -57,7 +57,12 @@
     - [x] (3/20 19:40 - 3/21 15:40) Uthread: switching between threads (moderate)
     - [x] (3/21 15:40 - 19:40) Using threads (moderate)
     - [x] (3/21 19:40 - 20:40) Barrier(moderate)
+# ============================
+### Don't worry about the details at first; just get a feel for how the manual is structured so you can find things later. The E1000 has many advanced features, most of which you can ignore. Only a small set of basic features is needed to complete this lab.
 - [ ] (3/21 20:40 - ) oct 25, Assignment: Lab net: Network driver
+  - [ ] (3/21 20:40 - 3/23 18:20) read Section 1, 2, 3.2 of the manual
+# ============================
+
 
 ## Q: How to read the source code ?
 ## A: Go to each branch, read the commits by OccupyMars2025
