@@ -59,8 +59,9 @@
     - [x] (3/21 19:40 - 20:40) Barrier(moderate)
 # ============================
 ### Don't worry about the details at first; just get a feel for how the manual is structured so you can find things later. The E1000 has many advanced features, most of which you can ignore. Only a small set of basic features is needed to complete this lab.
+# Never read a manual like a textbook. This is not how the manual is used
 - [ ] (3/21 20:40 - ) oct 25, Assignment: Lab net: Network driver
-  - [ ] (3/21 20:40 - 3/23 18:20) read Section 1, 2, 3.2 of the manual
+  - [ ] (3/21 20:40 - 3/23 18:20) read Section 1, 2, 3.2 of the manual like a textbook
 # ============================
 
 
