@@ -4,6 +4,7 @@
 
 ## TODO: study the test code of each lab, study the Makefile of each lab, complete the "Optional Challenge" part of each lab
 ## https://pdos.csail.mit.edu/6.1810/2023/schedule.html
+## https://xiayingp.gitbook.io/build_a_os
 ## https://risc-v-getting-started-guide.readthedocs.io/en/latest/
 ```
 You will need a RISC-V "newlib" tool chain from
