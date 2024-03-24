@@ -46,6 +46,10 @@ findslot(struct spinlock *lk) {
 void
 initlock(struct spinlock *lk, char *name)
 {
+  /*I guess
+  the address that "name" points to must be in
+  the .data section in the memory layout
+  */
   lk->name = name;
   lk->locked = 0;
   lk->cpu = 0;

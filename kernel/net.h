@@ -1,7 +1,8 @@
-//
-// packet buffer management
-//
-
+/*
+packet buffer management
+kernel/net.c and kernel/net.h contain a simple network stack that implements the IP, UDP, and ARP protocols. 
+These files also contain code for a flexible data structure to hold packets, called an mbuf.
+*/
 #define MBUF_SIZE              2048
 #define MBUF_DEFAULT_HEADROOM  128
 

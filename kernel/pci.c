@@ -1,7 +1,10 @@
-//
-// simple PCI-Express initialization, only
-// works for qemu and its e1000 card.
-//
+/*
+simple PCI-Express initialization, only
+works for qemu and its e1000 card.
+
+kernel/pci.c contains code that searches for 
+an E1000 card on the PCI bus when xv6 boots.
+*/
 
 #include "types.h"
 #include "param.h"
