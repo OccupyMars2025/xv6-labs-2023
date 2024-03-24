@@ -75,6 +75,8 @@ https://github.com/OccupyMars2025/xv6-labs-2023/issues/10
   - [x] (3/23 18:20 - 3/24 17:20) read the source code, complete the lab
 ### Reading the source code is much more enjoyable than reading the manual     
 # ============================
+- [ ] (3/24 17:20 - ) nov 1, LEC 13 (ab): File systems
+  - [ ] (3/24 17:20 - ) read Chapter 8: File system
 
 
 ## Q: How to read the source code ?
