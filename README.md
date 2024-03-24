@@ -4,6 +4,7 @@
 
 ## TODO: study the test code of each lab, study the Makefile of each lab, complete the "Optional Challenge" part of each lab
 ## https://pdos.csail.mit.edu/6.1810/2023/schedule.html
+## https://risc-v-getting-started-guide.readthedocs.io/en/latest/
 ## [related resources on csdiy](https://csdiy.wiki/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/MIT6.S081/)
 # goal: 2024/2/2 - 4/25: thoroughly complete learning this course
 - [x] (4 days)(2024/2/2 7:30 - 2/6 14:10) sep 6: Introduction and examples
