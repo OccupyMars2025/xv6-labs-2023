@@ -152,6 +152,12 @@ You should see something like this:
 ```
 
 # =======================
+## when you enter "make qemu-gdb", you can see the following infomation about file system:
+```
+nmeta 46 (boot, super, log blocks 30 inode blocks 13, bitmap blocks 1) blocks 1954 total 2000
+balloc: first 915 blocks have been allocated
+balloc: write bitmap block at sector 45
+```
 # [How to use GDB to debug xv6:](https://pdos.csail.mit.edu/6.1810/2023/lec/l-os.txt)
 # [use gdb](https://pdos.csail.mit.edu/6.1810/2023/labs/syscall.html)
 # [use gdb](https://pdos.csail.mit.edu/6.1810/2023/labs/gdb.html)
