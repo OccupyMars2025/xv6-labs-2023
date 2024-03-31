@@ -7,7 +7,7 @@
 ## https://xiayingp.gitbook.io/build_a_os
 ## https://risc-v-getting-started-guide.readthedocs.io/en/latest/
 # https://pdos.csail.mit.edu/6.1810/2023/labs/traps.html
-# It will be easier to look at traps with gdb if you tell qemu to use only one CPU, which you can do by running `make CPUS=1 qemu-gdb`
+# It will be easier to look at traps with gdb if you tell qemu to use only one CPU, which you can do by running `make CPUS=1 qemu-gdb`, then `(gdb) set $sstatus=0x200000020` to disable all interrupts, especially the timer interrupt
 ```
 You will need a RISC-V "newlib" tool chain from
 https://github.com/riscv/riscv-gnu-toolchain, and qemu compiled for
