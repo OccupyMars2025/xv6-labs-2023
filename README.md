@@ -1,5 +1,5 @@
 ## 2023/11/9 - 12/2: round 1, failure
-## 2024/2/2 - 4/20: round 2
+## 2024/2/2 - 4/18: round 2
 # ===============================
 
 ## TODO: study the test code of each lab, study the Makefile of each lab, complete the "Optional Challenge" part of each lab, re-study the "net" lab
