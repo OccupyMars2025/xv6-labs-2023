@@ -6,24 +6,6 @@
 ## https://pdos.csail.mit.edu/6.1810/2023/schedule.html
 ## https://xiayingp.gitbook.io/build_a_os
 ## https://risc-v-getting-started-guide.readthedocs.io/en/latest/
-# https://pdos.csail.mit.edu/6.1810/2023/labs/traps.html
-## It will be easier to look at traps with gdb if you tell qemu to use only one CPU, which you can do by running `make CPUS=1 qemu-gdb`, then `(gdb) set $sstatus=a new value` to disable all interrupts, especially the timer interrupt (refer to intr_off())
-## step 1: `make clean`
-## step 2: `make CPUS=1 qemu-gdb`
-## step 3:  disable all interrupts
-```
-(gdb) p/x $sstatus
-(gdb) set $sstatus=a new value
-```
-## step 4: `(gdb) info threads`, only one thread
-```
-You will need a RISC-V "newlib" tool chain from
-https://github.com/riscv/riscv-gnu-toolchain, and qemu compiled for
-riscv64-softmmu.  Once they are installed, and in your shell
-search path, you can run "make qemu".
-This issue may be helpful:
-https://github.com/OccupyMars2025/xv6-labs-2023/issues/10
-```
 
 ## [related resources on csdiy](https://csdiy.wiki/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/MIT6.S081/)
 # goal: 2024/2/2 - 4/5: thoroughly complete learning this course
@@ -85,16 +67,38 @@ https://github.com/OccupyMars2025/xv6-labs-2023/issues/10
   - [x] (3/23 18:20 - 3/24 17:20) read the source code, complete the lab
 ### Reading the source code is much more enjoyable than reading the manual     
 # ============================
-- [x] (3/24 17:20 - 3/30 7:30) nov 1, LEC 13 (ab): File systems
+- [x] (3/24 17:20 - 3/30 7:30) nov 1, LEC 13: File systems
   - [x] (3/24 17:20 - 3/29 18:00) read Chapter 8: File system
   - [x] (3/29 18:00 - 3/30 7:30) lecture
-- [ ] (3/30 7:30 - ) nov 6, LEC 14 (ab): Crash recovery
+- [x] (3/30 7:30 - 4/2 18:50) nov 6, LEC 14: Crash recovery
+- [ ] (4/2 18:50 - ) nov 8, LEC 15: File system performance and fast crash recovery
+  - [ ] (4/2 18:50 - ) read the paper
       
 
 
 ## Q: How to read the source code ?
 ## A: Go to each branch, read the commits by OccupyMars2025
 ### =====================
+# https://pdos.csail.mit.edu/6.1810/2023/labs/traps.html
+## It will be easier to look at traps with gdb if you tell qemu to use only one CPU, which you can do by running `make CPUS=1 qemu-gdb`, then `(gdb) set $sstatus=a new value` to disable all interrupts, especially the timer interrupt (refer to intr_off())
+## step 1: `make clean`
+## step 2: `make CPUS=1 qemu-gdb`
+## step 3:  disable all interrupts
+```
+(gdb) p/x $sstatus
+(gdb) set $sstatus=a new value
+```
+## step 4: `(gdb) info threads`, only one thread
+```
+You will need a RISC-V "newlib" tool chain from
+https://github.com/riscv/riscv-gnu-toolchain, and qemu compiled for
+riscv64-softmmu.  Once they are installed, and in your shell
+search path, you can run "make qemu".
+This issue may be helpful:
+https://github.com/OccupyMars2025/xv6-labs-2023/issues/10
+```
+### ===================
+
 ### In each lab, don't edit the file "README", it is needed, for example in "trace 32 grep hello README", you can add another file "README.md"
 ## BUILDING AND RUNNING XV6
 ### You will need a RISC-V "newlib" tool chain from https://github.com/riscv/riscv-gnu-toolchain, and qemu compiled for riscv64-softmmu.  Once they are installed, and in your shell search path, you can run "make qemu".
