@@ -80,6 +80,12 @@ bget(uint dev, uint blockno)
       b->blockno = blockno;
       b->valid = 0;
       b->refcnt = 1;
+      /*
+      It is safe for bget to acquire the buffer’s sleep-lock outside of the bcache.lock critical
+      section, since the non-zero b->refcnt prevents the buffer from being re-used for a different
+      disk block. The sleep-lock protects reads and writes of the block’s buffered content, while the
+      bcache.lock protects information about which blocks are cached.
+      */
       release(&bcache.lock);
       acquiresleep(&b->lock);
       return b;
@@ -120,7 +126,10 @@ brelse(struct buf *b)
     panic("brelse");
 
   releasesleep(&b->lock);
-
+  /*
+  now b->refcnt > 0, so nothing bad will happen
+  in between ???
+  */
   acquire(&bcache.lock);
   b->refcnt--;
   if (b->refcnt == 0) {
