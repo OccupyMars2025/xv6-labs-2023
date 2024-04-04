@@ -72,7 +72,8 @@
   - [x] (3/29 18:00 - 3/30 7:30) lecture
 - [x] (3/30 7:30 - 4/2 18:50) nov 6, LEC 14: Crash recovery
 - [ ] (4/2 18:50 - ) nov 8, LEC 15: File system performance and fast crash recovery
-  - [ ] (4/2 18:50 - ) read the paper
+  - [x] (4/2 18:50 - 4/4 9:10) read the paper
+  - [ ] (4/4 9:10 - ) lecture
       
 
 
