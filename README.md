@@ -73,7 +73,8 @@
 - [x] (3/30 7:30 - 4/2 18:50) nov 6, LEC 14: Crash recovery
 - [ ] (4/2 18:50 - ) nov 8, LEC 15: File system performance and fast crash recovery
   - [x] (4/2 18:50 - 4/4 9:10) read the paper
-  - [ ] (4/4 9:10 - ) lecture
+  - [x] (4/4 9:10 - 16:20) lecture
+  - [ ] (4/4 16:20 - ) Lab lock: Parallelism/locking
       
 
 
