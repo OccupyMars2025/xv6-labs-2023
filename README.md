@@ -1,7 +1,7 @@
 ## 2023/11/9 - 12/2: round 1, failure
 ## 2024/2/2 - 4/18: round 2
 # ===============================
-
+## [book: xv6: a simple, Unix-like teaching operating system](https://pdos.csail.mit.edu/6.1810/2023/xv6/book-riscv-rev3.pdf)
 ## TODO: study the test code of each lab, study the Makefile of each lab, complete the "Optional Challenge" part of each lab, re-study the "net" lab
 ## https://pdos.csail.mit.edu/6.1810/2023/schedule.html
 ## https://xiayingp.gitbook.io/build_a_os
