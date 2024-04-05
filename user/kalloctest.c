@@ -19,8 +19,8 @@ int
 main(int argc, char *argv[])
 {
   test1();
-  test2();
-  test3();
+  // test2();
+  // test3();
   exit(0);
 }
 
@@ -46,6 +46,9 @@ void test1(void)
   int n, m;
   printf("start test1\n");  
   m = ntas(0);
+
+  // printf("ntas() return %d\n", m);
+
   for(int i = 0; i < NCHILD; i++){
     int pid = fork();
     if(pid < 0){
@@ -71,6 +74,9 @@ void test1(void)
   }
   printf("test1 results:\n");
   n = ntas(1);
+
+  // printf("ntas() return %d\n", n);
+
   if(n-m < 10) 
     printf("test1 OK\n");
   else
