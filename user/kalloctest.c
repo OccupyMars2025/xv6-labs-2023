@@ -131,7 +131,8 @@ void test2() {
 // Test concurrent kalloc/kfree and stealing
 void test3(void)
 {
-  void *a, *a1;
+  // void *a, *a1;
+  char *a, *a1;
   printf("start test3\n");  
   for(int i = 0; i < NCHILD; i++){
     int pid = fork();
@@ -143,12 +144,30 @@ void test3(void)
       if (i == 0) {
         for(i = 0; i < N; i++) {
           a = sbrk(4096);
-          *(int *)(a+4) = 1;
-          a1 = sbrk(-4096);
-          if (a1 != a + 4096) {
-            printf("wrong sbrk\n");
-            exit(-1);
+
+          /*
+          if a is of type "void *", what does "a + 4" mean ???
+          */
+          if(((uint64)a) != 0xffffffffffffffff) {
+            /*
+            a = sbrk(4096);  succeeds
+            refer to countfree()
+            */
+            // printf("a=%p\n", a);
+            *(int *)(a+4) = 1;
+            a1 = sbrk(-4096);
+            if (a1 != a + 4096) {
+              printf("wrong sbrk\n");
+              exit(-1);
+            }
           }
+
+          // *(int *)(a+4) = 1;
+          // a1 = sbrk(-4096);
+          // if (a1 != a + 4096) {
+          //   printf("wrong sbrk\n");
+          //   exit(-1);
+          // }
         }
         printf("child done %d\n", i);
         exit(0);

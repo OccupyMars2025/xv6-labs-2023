@@ -52,3 +52,16 @@ test1 FAIL
 
 ```
 
+# bug occurs: https://github.com/OccupyMars2025/xv6-labs-2023/issues/12
+
+
+## [how to debug](https://pdos.csail.mit.edu/6.1810/2023/labs/guidance.html)
+```
+If you want to see what assembly code the compiler generates for the xv6 kernel or find out what instruction is at a particular kernel address, see the file kernel/kernel.asm, which the Makefile produces when it compiles the kernel. (The Makefile also produces .asm for all user programs.)
+
+If the kernel causes an unexpected fault (e.g. uses an invalid memory address), it will print an error message that includes the program counter ("sepc") at the point where it crashed; you can search kernel.asm to find the function containing that program counter, or you can run addr2line -e kernel/kernel pc-value (run man addr2line for details). If you want to get backtrace, restart using gdb: run 'make qemu-gdb' in one window, run gdb (or riscv64-linux-gnu-gdb) in another window, set breakpoint in panic ('b panic'), followed by followed by 'c' (continue). When the kernel hits the break point, type 'bt' to get a backtrace.
+
+If your kernel hangs, perhaps due to a deadlock, you can use gdb to find out where it is hanging. Run run 'make qemu-gdb' in one window, run gdb (riscv64-linux-gnu-gdb) in another window, followed by followed by 'c' (continue). When the kernel appears to hang hit Ctrl-C in the qemu-gdb window and type 'bt' to get a backtrace.
+
+qemu has a "monitor" that lets you query the state of the emulated machine. You can get at it by typing control-a c (the "c" is for console). A particularly useful monitor command is info mem to print the page table. You may need to use the cpu command to select which core info mem looks at, or you could start qemu with make CPUS=1 qemu to cause there to be just one core.
+```

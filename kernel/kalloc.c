@@ -64,11 +64,17 @@ kfree(void *pa)
 
   r = (struct run*)pa;
 
+  // refer to myproc(), add push_off() and pop_off()
+  push_off();
   int hart_id = cpuid();
+  // pop_off();
+
   acquire(&kmems[hart_id].lock);
   r->next = kmems[hart_id].freelist;
   kmems[hart_id].freelist = r;
   release(&kmems[hart_id].lock);
+
+  pop_off();
 }
 
 // Allocate one 4096-byte page of physical memory.
@@ -79,7 +85,10 @@ kalloc(void)
 {
   struct run *r;
 
+  push_off();
   int hart_id = cpuid();
+  // pop_off();
+
   acquire(&kmems[hart_id].lock);
   r = kmems[hart_id].freelist;
   if(r)
@@ -90,11 +99,13 @@ kalloc(void)
   this CPU has empty freelist, so "steal" one page
   from some other CPU's freelist
   */
+  // while(!r) {
   if(!r) {
-    for(int i = 0; i < NCPU; ++i) {
-      if(i == hart_id) {
-        continue;
-      }
+    /*
+    start from (hart_id + 1) % NCPU , not from 0, so
+    the freelist on each CPU may be more balanced
+    */
+    for(int i = (hart_id + 1) % NCPU; i != hart_id; i = (i + 1) % NCPU) {
       acquire(&kmems[i].lock);
       r = kmems[i].freelist;
       if(r) {
@@ -105,9 +116,17 @@ kalloc(void)
         break;
       }
     }
+    // printf("kalloc: while loop\n");
+    // if(!r) {
+    //    // pop_off() before yield()
+    //   yield();
+    // }
   }
 
   if(r)
     memset((char*)r, 5, PGSIZE); // fill with junk
+
+  pop_off();
+
   return (void*)r;
 }
