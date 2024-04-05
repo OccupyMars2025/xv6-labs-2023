@@ -8,7 +8,6 @@
 ## https://risc-v-getting-started-guide.readthedocs.io/en/latest/
 
 ## [related resources on csdiy](https://csdiy.wiki/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/MIT6.S081/)
-# goal: 2024/2/2 - 4/5: thoroughly complete learning this course
 - [x] (4 days)(2024/2/2 7:30 - 2/6 14:10) sep 6: Introduction and examples
 - [x] (3 hours)(2024/2/6 14:10 - 17:05) sep 11:  C in xv6, slides, and examples
 - [x] (7 days)(2024/2/6 17:05 - 2/13 13:58)sep 13: OS design
