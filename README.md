@@ -75,6 +75,7 @@
   - [x] (4/2 18:50 - 4/4 9:10) read the paper
   - [x] (4/4 9:10 - 16:20) lecture
   - [ ] (4/4 16:20 - ) Lab lock: Parallelism/locking
+    - [x] (4/4 16:20 - 4/5 23:50) Lab lock: Memory allocator (moderate)
       
 
 
