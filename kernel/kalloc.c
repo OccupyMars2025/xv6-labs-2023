@@ -108,6 +108,12 @@ kalloc(void)
   this CPU has empty freelist, so "steal" one page
   from some other CPU's freelist
   */
+  /*
+   You want to use "while(!r)" to make sure that kalloc() 
+   allocates a valid page and never returns 0, but it's impossible,
+   and user/kalloctest.c:countfree() depends on the failure of sbrk(4096)
+   to exit the its while loop. kalloc() returning 0 leads to the failure of sbrk(4096) 
+  */
   // while(!r) {
   if(!r) {
     /*
