@@ -27,12 +27,21 @@ struct {
   struct run *freelist;
 } kmems[NCPU];
 
+char kmems_name[NCPU][15];
+
 void
 kinit()
 {
+  // for (int i = 0; i < NCPU; i++)
+  // {
+  //   initlock(&kmems[i].lock, "kmem");
+  // }
+
   for (int i = 0; i < NCPU; i++)
   {
-    initlock(&kmems[i].lock, "kmem");
+    snprintf(kmems_name[i], 15, "kmem_cpu%d", i);
+    initlock(&kmems[i].lock, kmems_name[i]);
+    printf("kmem_name: %s\n", kmems[i].lock.name);
   }
   
   freerange(end, (void*)PHYSTOP);
