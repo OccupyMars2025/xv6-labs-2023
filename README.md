@@ -75,8 +75,7 @@
   - [x] (4/4 9:10 - 16:20) lecture
   - [ ] (4/4 16:20 - ) Lab lock: Parallelism/locking
     - [x] (4/4 16:20 - 4/5 23:50) Memory allocator (moderate)
-    - [ ] (4/6 7:30 - ) Buffer cache (hard)
-      
+    - [ ] (4/6 7:30 - ) Buffer cache (hard), TODO: https://github.com/OccupyMars2025/xv6-labs-2023/issues/13
 ## ===========================
 
 ## Q: How to read the source code ?
