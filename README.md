@@ -1,6 +1,6 @@
 ## 2023/11/9 - 12/2: round 1, failure
 ## 2024/2/2 - 4/18: round 2
-# ===============================
+## ===============================
 ## [book: xv6: a simple, Unix-like teaching operating system](https://pdos.csail.mit.edu/6.1810/2023/xv6/book-riscv-rev3.pdf)
 ## TODO: study the test code of each lab, study the Makefile of each lab, complete the "Optional Challenge" part of each lab, re-study the "net" lab
 ## https://pdos.csail.mit.edu/6.1810/2023/schedule.html
@@ -44,11 +44,11 @@
   - [x] (2/29 15:50 - 3/4 15:20) Lab: Copy-on-Write Fork for xv6
     - [x] (2/29 22:40) bug: https://github.com/OccupyMars2025/xv6-labs-2023/issues/9
     - [x] (3/4 7:00 - 15:20) complete this lab successfully
-# ========== why so slow ==================
+## ========== why so slow ==================
 - [x] (3/4 15:20 - 3/16 7:30) oct 11: LEC 10: Locking
   - [x] (3/4 17:00 - 3/15 18:00) read chapter 6: Locking
   - [x] (3/15 18:00 - 3/16 7:30) lecture, Locking
-# ============================
+## ============================
 - [x] (3/16 7:30 - 3/20 9:40)  oct 16, LEC 11 (rtm): Scheduling 1
   - [x] (3/16 7:30 - 3/19 18:00) Read "Chapter 7: Scheduling" 
   - [x] (3/19 18:00 - 3/20 9:40) lecture 11 (rtm): Scheduling 1
@@ -58,14 +58,14 @@
     - [x] (3/20 19:40 - 3/21 15:40) Uthread: switching between threads (moderate)
     - [x] (3/21 15:40 - 19:40) Using threads (moderate)
     - [x] (3/21 19:40 - 20:40) Barrier(moderate)
-# ============================
+## ============================
 ### Don't worry about the details at first; just get a feel for how the manual is structured so you can find things later. The E1000 has many advanced features, most of which you can ignore. Only a small set of basic features is needed to complete this lab.
 # Never read a manual like a textbook. This is not how the manual is used
 - [x] (3/21 20:40 - 3/24 17:20) oct 25, Assignment: Lab net: Network driver
   - [x] (3/21 20:40 - 3/23 18:20) read Section 1, 2, 3.2 of the manual like a textbook
   - [x] (3/23 18:20 - 3/24 17:20) read the source code, complete the lab
 ### Reading the source code is much more enjoyable than reading the manual     
-# ============================
+## ============================
 - [x] (3/24 17:20 - 3/30 7:30) nov 1, LEC 13: File systems
   - [x] (3/24 17:20 - 3/29 18:00) read Chapter 8: File system
   - [x] (3/29 18:00 - 3/30 7:30) lecture
@@ -77,7 +77,7 @@
     - [x] (4/4 16:20 - 4/5 23:50) Memory allocator (moderate)
     - [ ] (4/6 7:30 - ) Buffer cache (hard)
       
-
+## ===========================
 
 ## Q: How to read the source code ?
 ## A: Go to each branch, read the commits by OccupyMars2025
