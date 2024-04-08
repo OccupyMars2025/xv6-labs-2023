@@ -76,6 +76,7 @@
   - [ ] (4/4 16:20 - ) Lab lock: Parallelism/locking
     - [x] (4/4 16:20 - 4/5 23:50) Memory allocator (moderate)
     - [ ] (4/6 7:30 - ) Buffer cache (hard), TODO: https://github.com/OccupyMars2025/xv6-labs-2023/issues/13
+## (4/6 7:30 - 4/8 11:10) by debugging step by step, bcachetest --> test0() --> sys_mkdir() --> create(), after the 3rd round of debugging, finally I get familiar with the file system, build a reasonably accurate model of it in my brain. Whoo ! I can't believe how much work I've done to just understand the source code of the file system. (3/24 - 4/8)
 ## ===========================
 
 ## Q: How to read the source code ?
