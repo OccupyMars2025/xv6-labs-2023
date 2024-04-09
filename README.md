@@ -5,7 +5,7 @@ The form of the Schrödinger equation depends on the physical situation. The mos
 {{Equation box 1
 |indent=:
 |title='''Time-dependent Schrödinger equation'''&nbsp;''(general)''
-|equation=<math qid=Q165498>i \hbar \frac{d}{d t}\vert\Psi(t)\rangle = \hat H\vert\Psi(t)\rangle</math>
+$$<math qid=Q165498>i \hbar \frac{d}{d t}\vert\Psi(t)\rangle = \hat H\vert\Psi(t)\rangle</math>$$
 |cellpadding
 |border
 |border colour = rgb(80,200,120)
