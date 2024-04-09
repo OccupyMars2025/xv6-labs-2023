@@ -4,9 +4,9 @@ $$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \
 The form of the Schrödinger equation depends on the physical situation. The most general form is the time-dependent Schrödinger equation, which gives a description of a system evolving with time:<ref name=Shankar1994>{{cite book | last=Shankar | first=R. | author-link=Ramamurti Shankar | year=1994 | title=Principles of Quantum Mechanics | title-link=Principles of Quantum Mechanics | edition=2nd | publisher=Kluwer Academic/Plenum Publishers | isbn=978-0-306-44790-7}}</ref>{{rp|143}}
 {{Equation box 1
 |indent=:
-|title='''Time-dependent Schrödinger equation'''&nbsp;''(general)''
+**Time-dependent Schrödinger equation (general)**
 $$<math qid=Q165498>i \hbar \frac{d}{d t}\vert\Psi(t)\rangle = \hat H\vert\Psi(t)\rangle</math>$$
-$$i \hbar \frac{d}{d t}\vert\Psi(t)\rangle = \hat H\vert\Psi(t)\rangle$$
+
 |cellpadding
 |border
 |border colour = rgb(80,200,120)
