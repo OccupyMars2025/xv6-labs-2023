@@ -77,7 +77,8 @@
   - [ ] (4/4 16:20 - ) Lab lock: Parallelism/locking
     - [x] (4/4 16:20 - 4/5 23:50) Memory allocator (moderate)
     - [ ] (4/6 7:30 - ) Buffer cache (hard), TODO: https://github.com/OccupyMars2025/xv6-labs-2023/issues/13
-## (4/6 7:30 - 4/8 11:10) by debugging step by step, bcachetest --> test0() --> sys_mkdir() --> create(), after the 3rd round of debugging, finally I get familiar with the file system, build a reasonably accurate model of it in my brain. Whoo ! I can't believe how much work I've done to just understand the source code of the file system. (3/24 - 4/8)
+## (4/6 7:30 - 4/8 11:10) by debugging step by step, bcachetest --> test0() --> sys_mkdir() --> create(), after the 3rd round of debugging, finally I get familiar with the file system, build a reasonably accurate model of it in my brain. It's like I suddenly had a flash of inspiration after many times of repetition. Whoo ! I can't believe how much work I've done to just understand the source code of the file system. (3/24 - 4/8)
+## (4/8 11:10 - 4/10 18:00) By debugging bcachetest:test0() step by step, I can now read the source code related to the file system smoothly without any confusion. I'd call it a feat ! When I started studying the source code related to the file system, I was so frustrated that I didn't think I could make it. Genius is 1% inspiration and 99% perspiration. Without the 99% perspiration you won't get the 1% inspiration because that's just the mechanism of human brain.
 ## ===========================
 
 ## Q: How to read the source code ?
