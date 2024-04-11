@@ -25,6 +25,7 @@
 
 char bucket_lock_names[NBUCKETS][30];
 
+
 struct {
   struct spinlock lock;
   struct buf buf[NBUF];
@@ -59,12 +60,17 @@ binit(void)
   //   bcache.head.next->prev = b;
   //   bcache.head.next = b;
   // }
-  memset(bcache.buf, 0, sizeof(bcache.buf));
+  // memset(bcache.buf, 0, sizeof(bcache.buf));
 
   for (int i = 0; i < NBUCKETS; i++)
   {
     snprintf(bucket_lock_names[i], 30, "bcache_bucket_%d", i);
     initlock(bcache.bucket_locks + i, bucket_lock_names[i]);
+    printf("%s\n", bucket_lock_names[i]);
+  }
+
+  for (struct buf* b = bcache.buf; b < bcache.buf + NBUF; ++b) {
+    initsleeplock(&b->lock, "buffer");
   }
 
   memset(bcache.buckets, 0, sizeof(bcache.buckets));
@@ -115,6 +121,7 @@ bget(uint dev, uint blockno)
   acquire(&(bcache.bucket_locks[hash_index]));
   for(b = bcache.buckets[hash_index]; b != 0; b = b->next) {
     if(b->dev == dev && b->blockno == blockno) {
+      b->refcnt++;
       release(&(bcache.bucket_locks[hash_index]));
       release(&(bcache.lock));
       acquiresleep(&(b->lock));
@@ -135,7 +142,7 @@ bget(uint dev, uint blockno)
       acquire(&(bcache.bucket_locks[hash_index]));
       b2 = bcache.buckets[hash_index]; 
       if(b2 == 0) {
-        bcache.buckets[hash_index] = b;
+        bcache.buckets[hash_index] = b;  b->next = 0;
       } else {
         while (b2->next != 0)
         {
@@ -208,32 +215,33 @@ brelse(struct buf *b)
 
   acquire(&(bcache.lock));
   b->refcnt--;
-  if(b->refcnt == 0) {
-    // delete this buffer from the buckets
-    int hash_index = bcache_buckets_hash_function(b->blockno);
-    acquire(&(bcache.bucket_locks[hash_index]));
-    struct buf *buf_iterator = bcache.buckets[hash_index];
-    if(buf_iterator != 0) {
-      if(buf_iterator == b) {
-        bcache.buckets[hash_index] = b->next;
-        release(&(bcache.bucket_locks[hash_index]));
-        release(&(bcache.lock));
-        return;
-      } else {
-        while (buf_iterator->next != 0)
-        {
-          if(buf_iterator->next == b) {
-            buf_iterator->next = b->next;
-            release(&(bcache.bucket_locks[hash_index]));
-            release(&(bcache.lock));
-            return;
-          }
-          buf_iterator = buf_iterator->next;
-        }
-      }
-    }
-    panic("Error: the allocated buffer NOT in bcache.buckets\n");
-  }
+  // Caution: If b->refcnt turns 0, you don't need to delete this buffer from the buckets
+  // if(b->refcnt == 0) {
+  //   // delete this buffer from the buckets
+  //   int hash_index = bcache_buckets_hash_function(b->blockno);
+  //   acquire(&(bcache.bucket_locks[hash_index]));
+  //   struct buf *buf_iterator = bcache.buckets[hash_index];
+  //   if(buf_iterator != 0) {
+  //     if(buf_iterator == b) {
+  //       bcache.buckets[hash_index] = b->next;
+  //       release(&(bcache.bucket_locks[hash_index]));
+  //       release(&(bcache.lock));
+  //       return;
+  //     } else {
+  //       while (buf_iterator->next != 0)
+  //       {
+  //         if(buf_iterator->next == b) {
+  //           buf_iterator->next = b->next;
+  //           release(&(bcache.bucket_locks[hash_index]));
+  //           release(&(bcache.lock));
+  //           return;
+  //         }
+  //         buf_iterator = buf_iterator->next;
+  //       }
+  //     }
+  //   }
+  //   panic("Error: the allocated buffer NOT in bcache.buckets\n");
+  // }
 
   release(&(bcache.lock));
 }
