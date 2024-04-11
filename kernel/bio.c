@@ -133,6 +133,9 @@ bget(uint dev, uint blockno)
   // Not in the buckets. Insert an empty buffer in the buckets and return it
   for (b = bcache.buf; b < bcache.buf + NBUF; ++b) {
     if(b->refcnt == 0) {
+      /* make sure "b" is not in the buckets, 
+      so we delete the buffer from the buckets if its refcnt is 0
+      */
       b->dev = dev;
       b->blockno = blockno;
       b->valid = 0;
@@ -215,33 +218,32 @@ brelse(struct buf *b)
 
   acquire(&(bcache.lock));
   b->refcnt--;
-  // Caution: If b->refcnt turns 0, you don't need to delete this buffer from the buckets
-  // if(b->refcnt == 0) {
-  //   // delete this buffer from the buckets
-  //   int hash_index = bcache_buckets_hash_function(b->blockno);
-  //   acquire(&(bcache.bucket_locks[hash_index]));
-  //   struct buf *buf_iterator = bcache.buckets[hash_index];
-  //   if(buf_iterator != 0) {
-  //     if(buf_iterator == b) {
-  //       bcache.buckets[hash_index] = b->next;
-  //       release(&(bcache.bucket_locks[hash_index]));
-  //       release(&(bcache.lock));
-  //       return;
-  //     } else {
-  //       while (buf_iterator->next != 0)
-  //       {
-  //         if(buf_iterator->next == b) {
-  //           buf_iterator->next = b->next;
-  //           release(&(bcache.bucket_locks[hash_index]));
-  //           release(&(bcache.lock));
-  //           return;
-  //         }
-  //         buf_iterator = buf_iterator->next;
-  //       }
-  //     }
-  //   }
-  //   panic("Error: the allocated buffer NOT in bcache.buckets\n");
-  // }
+  if(b->refcnt == 0) {
+    // delete this buffer from the buckets
+    int hash_index = bcache_buckets_hash_function(b->blockno);
+    acquire(&(bcache.bucket_locks[hash_index]));
+    struct buf *buf_iterator = bcache.buckets[hash_index];
+    if(buf_iterator != 0) {
+      if(buf_iterator == b) {
+        bcache.buckets[hash_index] = b->next;
+        release(&(bcache.bucket_locks[hash_index]));
+        release(&(bcache.lock));
+        return;
+      } else {
+        while (buf_iterator->next != 0)
+        {
+          if(buf_iterator->next == b) {
+            buf_iterator->next = b->next;
+            release(&(bcache.bucket_locks[hash_index]));
+            release(&(bcache.lock));
+            return;
+          }
+          buf_iterator = buf_iterator->next;
+        }
+      }
+    }
+    panic("Error: the allocated buffer NOT in bcache.buckets\n");
+  }
 
   release(&(bcache.lock));
 }
