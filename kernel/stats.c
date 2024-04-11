@@ -27,7 +27,7 @@ statswrite(int user_src, uint64 src, int n)
 }
 
 int
-statsread(int user_dst, uint64 dst, int n)
+statsread(int user_dst, uint64 dst, int n) // user_dst: if "dst" is a user virtual address
 {
   int m;
 

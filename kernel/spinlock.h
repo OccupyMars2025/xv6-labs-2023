@@ -6,8 +6,8 @@ struct spinlock {
   char *name;        // Name of lock.
   struct cpu *cpu;   // The cpu holding the lock.
 #ifdef LAB_LOCK
-  int nts;
-  int n;
+  int nts;  // number of "test and set", refer to acquire()
+  int n;    // refer to acquire()
 #endif
 };
 

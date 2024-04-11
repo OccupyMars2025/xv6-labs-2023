@@ -40,10 +40,11 @@ struct logheader {
   int block[LOGSIZE];
 };
 
+// refer to begin_op(), end_op() and commit()
 struct log {
   struct spinlock lock;
-  int start;
-  int size;
+  int start; // the address/id of the block to store logheader. The block with id start + 1 is the first log block to store the content of data blocks
+  int size;  // number of disk blocks to store the log
   int outstanding; // how many FS sys calls are executing.
   int committing;  // in commit(), please wait.
   int dev;
@@ -67,7 +68,13 @@ initlog(int dev, struct superblock *sb)
   recover_from_log();
 }
 
-// Copy committed blocks from log to their home location
+/*
+ Copy committed blocks from log to their home location.
+ It seems unneccessary to add memmove() when the system 
+ is working well. But if the system is suddenly shutdown
+ for some reason, you know the value of the logging.
+ It's so called "add more backup to ensure security".
+*/
 static void
 install_trans(int recovering)
 {
@@ -108,11 +115,25 @@ write_head(void)
   struct buf *buf = bread(log.dev, log.start);
   struct logheader *hb = (struct logheader *) (buf->data);
   int i;
+  /* Can we just use memmove() to replace the for loop
+  memmove(hb, &(log.lh), sizeof(*hb));
+
+  Answer: maybe. but I don't need to copy the content 
+  log.lh.block[n] ~ log.lh.block[LOGSIZE - 1]
+  */
   hb->n = log.lh.n;
   for (i = 0; i < log.lh.n; i++) {
     hb->block[i] = log.lh.block[i];
   }
   bwrite(buf);
+  /*
+  first write_log() writes all data blocks in the log blocks,
+  then write_head() writes the log header in the log blocks,
+  It is only when log.lh.n is written into the log disk block 
+  that makes the all log blocks valid or useful.
+  If the power is off just after write_head(), then when restarting, 
+  we find that log.lh.n on the disk is NOT 0, so we should recover from the log blocks
+  */
   brelse(buf);
 }
 
@@ -134,7 +155,10 @@ begin_op(void)
     if(log.committing){
       sleep(&log, &log.lock);
     } else if(log.lh.n + (log.outstanding+1)*MAXOPBLOCKS > LOGSIZE){
-      // this op might exhaust log space; wait for commit.
+      /* this op might exhaust log space; wait for commit to clear the log space.
+        all the blocks that will be written back to their original disk locations
+        are logged in log.lh.block[LOGSIZE]. log.lh.n is the number of blocks that have been logged in the array.
+      */
       sleep(&log, &log.lock);
     } else {
       log.outstanding += 1;
@@ -153,7 +177,7 @@ end_op(void)
 
   acquire(&log.lock);
   log.outstanding -= 1;
-  if(log.committing)
+  if(log.committing) // If log.committing is 1, then this process should be sleeping (refer to begin_op())
     panic("log.committing");
   if(log.outstanding == 0){
     do_commit = 1;
@@ -184,8 +208,15 @@ write_log(void)
   int tail;
 
   for (tail = 0; tail < log.lh.n; tail++) {
+    /* Can we change to the following ? If to->valid is 0, 
+    I will read from the disk block to the to->data, but 
+    soon to->data will be completely replaced by from->data, 
+    so there is no need to read from the disk block at all !
+
+    struct buf *to = bget(log.dev, log.start+tail+1); // log block
+    */
     struct buf *to = bread(log.dev, log.start+tail+1); // log block
-    struct buf *from = bread(log.dev, log.lh.block[tail]); // cache block
+    struct buf *from = bread(log.dev, log.lh.block[tail]); // cache block, should already be in the bcache
     memmove(to->data, from->data, BSIZE);
     bwrite(to);  // write the log
     brelse(from);
@@ -197,6 +228,12 @@ static void
 commit()
 {
   if (log.lh.n > 0) {
+    /*
+    Caution: You have to execute write_log() first, then 
+    write_head(), not the other way around, 
+    we examine logheader in the log block to check if the whole log is valid.
+    so we must write all data buffer into log blocks before writing logheader into a log block
+    */
     write_log();     // Write modified blocks from cache to log
     write_head();    // Write header to disk -- the real commit
     install_trans(0); // Now install writes to home locations
@@ -220,11 +257,11 @@ log_write(struct buf *b)
   int i;
 
   acquire(&log.lock);
-  if (log.lh.n >= LOGSIZE || log.lh.n >= log.size - 1)
+  if (log.lh.n >= LOGSIZE || log.lh.n >= log.size - 1) // I think it should be modified as log.lh.n >= LOGSIZE - 1
     panic("too big a transaction");
   if (log.outstanding < 1)
     panic("log_write outside of trans");
-
+  // Does log.dev match b->dev ????
   for (i = 0; i < log.lh.n; i++) {
     if (log.lh.block[i] == b->blockno)   // log absorption
       break;

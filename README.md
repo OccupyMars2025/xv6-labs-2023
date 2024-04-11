@@ -65,3 +65,48 @@ If your kernel hangs, perhaps due to a deadlock, you can use gdb to find out whe
 
 qemu has a "monitor" that lets you query the state of the emulated machine. You can get at it by typing control-a c (the "c" is for console). A particularly useful monitor command is info mem to print the page table. You may need to use the cpu command to select which core info mem looks at, or you could start qemu with make CPUS=1 qemu to cause there to be just one core.
 ```
+
+## ==================================
+# Buffer cache (hard)
+## its output (before I complete this lab):
+```
+kmem_name: kmem_cpu0
+kmem_name: kmem_cpu1
+kmem_name: kmem_cpu2
+kmem_name: kmem_cpu3
+kmem_name: kmem_cpu4
+kmem_name: kmem_cpu5
+kmem_name: kmem_cpu6
+kmem_name: kmem_cpu7
+hart 1 starting
+hart 2 starting
+init: starting sh
+$ bcachetest
+start test0
+test0 results:
+--- lock kmem/bcache stats
+lock: kmem_cpu0: #test-and-set 0 #acquire() 32990
+lock: kmem_cpu1: #test-and-set 0 #acquire() 100
+lock: kmem_cpu2: #test-and-set 0 #acquire() 81
+lock: kmem_cpu3: #test-and-set 0 #acquire() 81
+lock: kmem_cpu4: #test-and-set 0 #acquire() 81
+lock: kmem_cpu5: #test-and-set 0 #acquire() 81
+lock: kmem_cpu6: #test-and-set 0 #acquire() 81
+lock: kmem_cpu7: #test-and-set 0 #acquire() 81
+lock: bcache: #test-and-set 14481 #acquire() 65960
+--- top 5 contended locks:
+lock: virtio_disk: #test-and-set 651242 #acquire() 1227
+lock: proc: #test-and-set 37596 #acquire() 387057
+lock: proc: #test-and-set 37284 #acquire() 387056
+lock: proc: #test-and-set 34402 #acquire() 387043
+lock: bcache: #test-and-set 14481 #acquire() 65960
+tot= 14481
+test0: FAIL
+start test1
+test1 OK
+start test2
+test2 OK
+$ QEMU: Terminated
+```
+
+## [[solved][lab lock] when we write the device which has the name "statistics" ? ](https://github.com/OccupyMars2025/xv6-labs-2023/issues/14)

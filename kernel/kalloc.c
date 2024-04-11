@@ -37,6 +37,12 @@ kinit()
   //   initlock(&kmems[i].lock, "kmem");
   // }
 
+  /* Quesion: 
+  If we place the following line in kinit(),
+  char kmems_name[NCPU][15];
+  then when exiting kinit(), the physical page that stores kmems_name 
+  will be recycled, so kmems[i].lock.name will become a wild pointer ???
+  */
   for (int i = 0; i < NCPU; i++)
   {
     snprintf(kmems_name[i], 15, "kmem_cpu%d", i);

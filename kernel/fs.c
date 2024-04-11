@@ -60,7 +60,7 @@ bzero(int dev, int bno)
 
 // Blocks.
 
-// Allocate a zeroed disk block.
+// set the corresponding bit in the bitmap block(one bit corresponding to one block), zero the found disk block, return the address/id of this zeroed disk block.
 // returns 0 if out of disk space.
 static uint
 balloc(uint dev)
@@ -87,7 +87,7 @@ balloc(uint dev)
   return 0;
 }
 
-// Free a disk block.
+// Free a disk block, just clear the corresponding bit in the bitmap block, which is also stored in memory as struct buf
 static void
 bfree(int dev, uint b)
 {
@@ -220,7 +220,7 @@ ialloc(uint dev, short type)
 
 // Copy a modified in-memory inode to disk.
 // Must be called after every change to an ip->xxx field
-// that lives on disk.
+// that lives on disk. (if ip->xxx fields that are also in struct dinode are changed)
 // Caller must hold ip->lock.
 void
 iupdate(struct inode *ip)
@@ -242,7 +242,7 @@ iupdate(struct inode *ip)
 
 // Find the inode with number inum on device dev
 // and return the in-memory copy. Does not lock
-// the inode and does not read it from disk.
+// the inode and does not read it from disk. iget() just deals with itable, NOT with the disk blocks that store the array of dinodes
 static struct inode*
 iget(uint dev, uint inum)
 {
@@ -466,7 +466,7 @@ stati(struct inode *ip, struct stat *st)
 // Read data from inode.
 // Caller must hold ip->lock.
 // If user_dst==1, then dst is a user virtual address;
-// otherwise, dst is a kernel address.
+// otherwise, dst is a kernel address. "off" is the byte offset of the inode content, "n" is the number of bytes you want to read
 int
 readi(struct inode *ip, int user_dst, uint64 dst, uint off, uint n)
 {
@@ -500,7 +500,7 @@ readi(struct inode *ip, int user_dst, uint64 dst, uint off, uint n)
 // otherwise, src is a kernel address.
 // Returns the number of bytes successfully written.
 // If the return value is less than the requested n,
-// there was an error of some kind.
+// there was an error of some kind. Write to the byte offset range [off, off + n) in ip
 int
 writei(struct inode *ip, int user_src, uint64 src, uint off, uint n)
 {
@@ -595,7 +595,7 @@ dirlink(struct inode *dp, char *name, uint inum)
     if(de.inum == 0)
       break;
   }
-
+  // it seems that it is assumed that there must exist an empty dirent in dp. Is this assumption reasonable ????
   strncpy(de.name, name, DIRSIZ);
   de.inum = inum;
   if(writei(dp, 0, (uint64)&de, off, sizeof(de)) != sizeof(de))
@@ -643,9 +643,9 @@ skipelem(char *path, char *name)
   return path;
 }
 
-// Look up and return the inode for a path name.
-// If parent != 0, return the inode for the parent and copy the final
-// path element into name, which must have room for DIRSIZ bytes.
+// Look up and return the inode for a path name. path="a/b/c/d". If nameiparent=0, return the node for "a/b/c/d", ignore "name".
+// If nameiparent != 0, return the inode for the parent "a/b/c" and copy the final
+// path element "d" into "name", which must have room for DIRSIZ bytes.
 // Must be called inside a transaction since it calls iput().
 static struct inode*
 namex(char *path, int nameiparent, char *name)
@@ -675,20 +675,20 @@ namex(char *path, int nameiparent, char *name)
     iunlockput(ip);
     ip = next;
   }
-  if(nameiparent){
+  if(nameiparent){  // if path that is passed to namex() is "", then you won't enter the while loop, here ip represents the current working directory, but I cannot find the parent directory
     iput(ip);
     return 0;
   }
   return ip;
 }
-
+// return the inode representing the whole "path"
 struct inode*
 namei(char *path)
 {
   char name[DIRSIZ];
   return namex(path, 0, name);
 }
-
+// path="a/b/c/d", set "name" to "d"(the last element in the "path"), return the inode representing the directory a/b/c
 struct inode*
 nameiparent(char *path, char *name)
 {

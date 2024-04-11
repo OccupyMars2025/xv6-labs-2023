@@ -207,9 +207,9 @@ sys_unlink(void)
   // Cannot unlink "." or "..".
   if(namecmp(name, ".") == 0 || namecmp(name, "..") == 0)
     goto bad;
-
+  
   if((ip = dirlookup(dp, name, &off)) == 0)
-    goto bad;
+    goto bad; // in dp, there is no dirent with the name "name"
   ilock(ip);
 
   if(ip->nlink < 1)
@@ -222,13 +222,13 @@ sys_unlink(void)
   memset(&de, 0, sizeof(de));
   if(writei(dp, 0, (uint64)&de, off, sizeof(de)) != sizeof(de))
     panic("unlink: writei");
-  if(ip->type == T_DIR){
-    dp->nlink--;
+  if(ip->type == T_DIR){ 
+    dp->nlink--;  // ip contains dirent "." and ".." of which ".." refers to dp(parent directory of ip)
     iupdate(dp);
   }
   iunlockput(dp);
 
-  ip->nlink--;
+  ip->nlink--; // dp no longer contains ip as a dirent
   iupdate(ip);
   iunlockput(ip);
 
@@ -250,32 +250,32 @@ create(char *path, short type, short major, short minor)
 
   if((dp = nameiparent(path, name)) == 0)
     return 0;
-
+  // example: path="a/b/c/d", now name is "d", dp represents the directory "a/b/c"
   ilock(dp);
-
+  // try to find a dirent with name "d" in the directory "a/b/c" represented by dp
   if((ip = dirlookup(dp, name, 0)) != 0){
     iunlockput(dp);
     ilock(ip);
-    if(type == T_FILE && (ip->type == T_FILE || ip->type == T_DEVICE))
+    if(type == T_FILE && (ip->type == T_FILE || ip->type == T_DEVICE)) // it seems to say if I find a dirent with name "d" in the directory "a/b/c", then this dirent must be a file or device, but NOT a directory ???? why ???
       return ip;
     iunlockput(ip);
     return 0;
   }
-
+  // I cannot find a dirent with name "d" in the directory "a/b/c" represented by dp, so I allocate an inode corresponding to this dirent
   if((ip = ialloc(dp->dev, type)) == 0){
     iunlockput(dp);
     return 0;
   }
-
+  // dp is a directory that contains ip, ip is a file or directory in dp
   ilock(ip);
   ip->major = major;
   ip->minor = minor;
   ip->nlink = 1;
   iupdate(ip);
-
+  // if "d"( represented by ip) is a directory
   if(type == T_DIR){  // Create . and .. entries.
     // No ip->nlink++ for ".": avoid cyclic ref count.
-    if(dirlink(ip, ".", ip->inum) < 0 || dirlink(ip, "..", dp->inum) < 0)
+    if(dirlink(ip, ".", ip->inum) < 0 || dirlink(ip, "..", dp->inum) < 0) 
       goto fail;
   }
 

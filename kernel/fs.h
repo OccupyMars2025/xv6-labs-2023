@@ -13,9 +13,9 @@
 // super block describes the disk layout:
 struct superblock {
   uint magic;        // Must be FSMAGIC
-  uint size;         // Size of file system image (blocks)
+  uint size;         // Size of file system image (how many blocks)
   uint nblocks;      // Number of data blocks
-  uint ninodes;      // Number of inodes.
+  uint ninodes;      // Number of inodes. Actually it indicates how many dinodes can be stored in some several disk blocks that are dedicated to storing dinodes, refer to ialloc()
   uint nlog;         // Number of log blocks
   uint logstart;     // Block number of first log block
   uint inodestart;   // Block number of first inode block
@@ -54,7 +54,7 @@ struct dinode {
 #define DIRSIZ 14
 
 struct dirent {
-  ushort inum;
+  ushort inum; // it seems that "inum" starts from 1,  (0 means none), refer to dirlookup() ???
   char name[DIRSIZ];
 };
 

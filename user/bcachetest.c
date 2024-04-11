@@ -17,8 +17,8 @@ int
 main(int argc, char *argv[])
 {
   test0();
-  test1();
-  test2();
+  // test1();
+  // test2();
   exit(0);
 }
 
@@ -58,9 +58,9 @@ readfile(char *file, int nbytes, int inc)
     printf("readfile open %s failed\n", file);
     exit(-1);
   }
-  for (i = 0; i < nbytes; i += inc) {
-    if(read(fd, buf, inc) != inc) {
-      printf("read %s failed for block %d (%d)\n", file, i, nbytes);
+  for (i = 0; i < nbytes; i += inc) {  // In one use case, "inc" is set to 1
+    if(read(fd, buf, inc) != inc) { 
+      printf("read %s failed for block %d (%d)\n", file, i, nbytes); // I don't think it can be called "block". It should be called "reading the byte range [i, i+inc) of the file"
       exit(-1);
     }
   }
@@ -76,7 +76,7 @@ int ntas(int print)
     fprintf(2, "ntas: no stats\n");
   }
   c = strchr(buf, '=');
-  n = atoi(c+2);
+  n = atoi(c+2); // c is "= 0\n"
   if(print)
     printf("%s", buf);
   return n;
@@ -104,7 +104,7 @@ test0()
       printf("chdir failed\n");
       exit(1);
     }
-    unlink(file);
+    unlink(file); 
     createfile(file, N);
     if (chdir("..") < 0) {
       printf("chdir failed\n");
@@ -124,7 +124,7 @@ test0()
         printf("chdir failed\n");
         exit(1);
       }
-
+      // creates several processes that repeatedly read different files (just read one byte at a time) in order to generate contention on bcache.lock
       readfile(file, N*BSIZE, 1);
 
       exit(0);

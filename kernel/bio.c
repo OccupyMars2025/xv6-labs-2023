@@ -118,7 +118,7 @@ bwrite(struct buf *b)
 }
 
 // Release a locked buffer.
-// Move to the head of the most-recently-used list.
+// Move to the head of the most-recently-used list, (bcache.head.next = b)
 void
 brelse(struct buf *b)
 {
@@ -144,7 +144,7 @@ brelse(struct buf *b)
   
   release(&bcache.lock);
 }
-
+// Question: I don't understand what bpin() and bunpin() are doing ???
 void
 bpin(struct buf *b) {
   acquire(&bcache.lock);
