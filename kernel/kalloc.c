@@ -47,7 +47,7 @@ kinit()
   {
     snprintf(kmems_name[i], 15, "kmem_cpu%d", i);
     initlock(&kmems[i].lock, kmems_name[i]);
-    printf("kmem_name: %s\n", kmems[i].lock.name);
+    // printf("kmem_name: %s\n", kmems[i].lock.name);
   }
   
   freerange(end, (void*)PHYSTOP);

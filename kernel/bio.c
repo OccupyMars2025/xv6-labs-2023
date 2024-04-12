@@ -84,18 +84,18 @@ binit(void)
   {
     snprintf(bcache.bucket_lock_names[i], LOCK_NAME_MAX_LENGTH, "bcache_bucket_%d", i);
     initlock(bcache.bucket_locks + i, bcache.bucket_lock_names[i]);
-    printf("%s\n", bcache.bucket_lock_names[i]);
+    // printf("%s\n", bcache.bucket_lock_names[i]);
   }
 
   snprintf(bcache.free_buffers_lock_name, LOCK_NAME_MAX_LENGTH, "bcache_free_buffer");
   initlock(&(bcache.free_buffers_lock), bcache.free_buffers_lock_name);
-  printf("%s\n", bcache.free_buffers_lock_name);
+  // printf("%s\n", bcache.free_buffers_lock_name);
 
   for (struct buf* b = bcache.buf; b < bcache.buf + NBUF; ++b) {
     initsleeplock(&b->lock, "buffer");
   }
 
-  memset(bcache.buckets, 0, sizeof(bcache.buckets));
+  // memset(bcache.buckets, 0, sizeof(bcache.buckets));
   
   // construct a linked list of free buffers
   for (struct buf* b = bcache.buf; b < bcache.buf + NBUF - 1; ++b) {
