@@ -17,8 +17,8 @@ int
 main(int argc, char *argv[])
 {
   test0();
-  // test1();
-  // test2();
+  test1();
+  test2();
   exit(0);
 }
 

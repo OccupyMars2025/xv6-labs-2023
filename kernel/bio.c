@@ -23,21 +23,39 @@
 #include "fs.h"
 #include "buf.h"
 
-char bucket_lock_names[NBUCKETS][30];
+// char bucket_lock_names[NBUCKETS][LOCK_NAME_MAX_LENGTH];
+
+// struct {
+//   struct spinlock lock;
+//   struct buf buf[NBUF];
+
+//   // // Linked list of all buffers, through prev/next.
+//   // // Sorted by how recently the buffer was used.
+//   // // head.next is most recent, head.prev is least.
+//   // struct buf head;
+//   struct spinlock bucket_locks[NBUCKETS];
+//   struct buf* buckets[NBUCKETS];
+
+// } bcache;
 
 
 struct {
-  struct spinlock lock;
+  // struct spinlock lock;
   struct buf buf[NBUF];
 
-  // // Linked list of all buffers, through prev/next.
-  // // Sorted by how recently the buffer was used.
-  // // head.next is most recent, head.prev is least.
-  // struct buf head;
+  char bucket_lock_names[NBUCKETS][LOCK_NAME_MAX_LENGTH];
   struct spinlock bucket_locks[NBUCKETS];
   struct buf* buckets[NBUCKETS];
 
+  /*
+  You will always acquire some bucket_locks[i] first, 
+  then acquire free_buffers_lock
+  */
+  char free_buffers_lock_name[LOCK_NAME_MAX_LENGTH];
+  struct spinlock free_buffers_lock;
+  struct buf* free_buffers;
 } bcache;
+
 
 int bcache_buckets_hash_function(int blockno) {
   return (blockno * 3) % NBUCKETS;
@@ -48,7 +66,7 @@ binit(void)
 {
   // struct buf *b;
 
-  initlock(&bcache.lock, "bcache");
+  // initlock(&bcache.lock, "bcache");
 
   // // Create linked list of buffers
   // bcache.head.prev = &bcache.head;
@@ -64,16 +82,27 @@ binit(void)
 
   for (int i = 0; i < NBUCKETS; i++)
   {
-    snprintf(bucket_lock_names[i], 30, "bcache_bucket_%d", i);
-    initlock(bcache.bucket_locks + i, bucket_lock_names[i]);
-    printf("%s\n", bucket_lock_names[i]);
+    snprintf(bcache.bucket_lock_names[i], LOCK_NAME_MAX_LENGTH, "bcache_bucket_%d", i);
+    initlock(bcache.bucket_locks + i, bcache.bucket_lock_names[i]);
+    printf("%s\n", bcache.bucket_lock_names[i]);
   }
+
+  snprintf(bcache.free_buffers_lock_name, LOCK_NAME_MAX_LENGTH, "bcache_free_buffer");
+  initlock(&(bcache.free_buffers_lock), bcache.free_buffers_lock_name);
+  printf("%s\n", bcache.free_buffers_lock_name);
 
   for (struct buf* b = bcache.buf; b < bcache.buf + NBUF; ++b) {
     initsleeplock(&b->lock, "buffer");
   }
 
   memset(bcache.buckets, 0, sizeof(bcache.buckets));
+  
+  // construct a linked list of free buffers
+  for (struct buf* b = bcache.buf; b < bcache.buf + NBUF - 1; ++b) {
+    b->next = b + 1;
+  }
+  bcache.buf[NBUF - 1].next = 0;
+  bcache.free_buffers = bcache.buf;
 }
 
 // Look through buffer cache for block on device dev.
@@ -82,88 +111,84 @@ binit(void)
 static struct buf*
 bget(uint dev, uint blockno)
 {
-  struct buf *b, *b2;
-
-  acquire(&bcache.lock);
-
-  // // Is the block already cached?
-  // for(b = bcache.head.next; b != &bcache.head; b = b->next){
-  //   if(b->dev == dev && b->blockno == blockno){
-  //     b->refcnt++;
-  //     release(&bcache.lock);
-  //     acquiresleep(&b->lock);
-  //     return b;
-  //   }
-  // }
-
-  // // Not cached.
-  // // Recycle the least recently used (LRU) unused buffer.
-  // for(b = bcache.head.prev; b != &bcache.head; b = b->prev){
-  //   if(b->refcnt == 0) {
-  //     b->dev = dev;
-  //     b->blockno = blockno;
-  //     b->valid = 0;
-  //     b->refcnt = 1;
-  //     /*
-  //     It is safe for bget to acquire the buffer’s sleep-lock outside of the bcache.lock critical
-  //     section, since the non-zero b->refcnt prevents the buffer from being re-used for a different
-  //     disk block. The sleep-lock protects reads and writes of the block’s buffered content, while the
-  //     bcache.lock protects information about which blocks are cached.
-  //     */
-  //     release(&bcache.lock);
-  //     acquiresleep(&b->lock);
-  //     return b;
-  //   }
-  // }
+  struct buf *b, *b2 = 0;
 
   // Is the block already inserted in the buckets ?
   int hash_index = bcache_buckets_hash_function(blockno);
+  
   acquire(&(bcache.bucket_locks[hash_index]));
   for(b = bcache.buckets[hash_index]; b != 0; b = b->next) {
     if(b->dev == dev && b->blockno == blockno) {
       b->refcnt++;
       release(&(bcache.bucket_locks[hash_index]));
-      release(&(bcache.lock));
       acquiresleep(&(b->lock));
       return b;
     }
+    if(b->next == 0) {
+      b2 = b;
+    }
   }
+
+  // // Not in the buckets. Insert an empty buffer in the buckets and return it
+  // for (b = bcache.buf; b < bcache.buf + NBUF; ++b) {
+  //   if(b->refcnt == 0) {
+  //     /* make sure "b" is not in the buckets, 
+  //     so we delete the buffer from the buckets if its refcnt is 0
+  //     */
+  //     b->dev = dev;
+  //     b->blockno = blockno;
+  //     b->valid = 0;
+  //     b->refcnt = 1;
+
+  //     // now insert this buffer into the buckets
+  //     acquire(&(bcache.bucket_locks[hash_index]));
+  //     b2 = bcache.buckets[hash_index]; 
+  //     if(b2 == 0) {
+  //       bcache.buckets[hash_index] = b;  b->next = 0;
+  //     } else {
+  //       while (b2->next != 0)
+  //       {
+  //         b2 = b2->next;
+  //       }
+  //       b2->next = b;
+  //       b->next = 0;
+  //       // b->prev = b2;
+  //     }
+  //     release(&(bcache.bucket_locks[hash_index]));
+
+  //     release(&(bcache.lock));
+  //     acquiresleep(&(b->lock));
+  //     return b;
+  //   }
+  // }
+
+  // panic("bget: no buffers");
+
+  acquire(&(bcache.free_buffers_lock));
+  b = bcache.free_buffers;
+  if(b == 0) {
+    panic("bget: out of block buffers\n");
+  } else {
+    bcache.free_buffers = b->next;
+    b->dev = dev;
+    b->blockno = blockno;
+    b->refcnt = 1;
+    b->valid = 0;
+  }
+  release(&(bcache.free_buffers_lock));
+
+  // append the allocated empty buffer to the end of the linked list bcache.buckets[hash_index]
+  if(b2 != 0) {
+    b2->next = b;
+    b->next = 0;
+  } else {
+    bcache.buckets[hash_index] = b;
+    b->next = 0;
+  }
+
   release(&(bcache.bucket_locks[hash_index]));
-
-  // Not in the buckets. Insert an empty buffer in the buckets and return it
-  for (b = bcache.buf; b < bcache.buf + NBUF; ++b) {
-    if(b->refcnt == 0) {
-      /* make sure "b" is not in the buckets, 
-      so we delete the buffer from the buckets if its refcnt is 0
-      */
-      b->dev = dev;
-      b->blockno = blockno;
-      b->valid = 0;
-      b->refcnt = 1;
-
-      // now insert this buffer into the buckets
-      acquire(&(bcache.bucket_locks[hash_index]));
-      b2 = bcache.buckets[hash_index]; 
-      if(b2 == 0) {
-        bcache.buckets[hash_index] = b;  b->next = 0;
-      } else {
-        while (b2->next != 0)
-        {
-          b2 = b2->next;
-        }
-        b2->next = b;
-        b->next = 0;
-        // b->prev = b2;
-      }
-      release(&(bcache.bucket_locks[hash_index]));
-
-      release(&(bcache.lock));
-      acquiresleep(&(b->lock));
-      return b;
-    }
-  }
-
-  panic("bget: no buffers");
+  acquiresleep(&(b->lock));
+  return b;
 }
 
 // Return a locked buf with the contents of the indicated block.
@@ -197,6 +222,7 @@ brelse(struct buf *b)
   if(!holdingsleep(&b->lock))
     panic("brelse");
 
+  int hash_index = bcache_buckets_hash_function(b->blockno);
   releasesleep(&b->lock);
   // /*
   // now b->refcnt > 0, so nothing bad will happen
@@ -216,52 +242,65 @@ brelse(struct buf *b)
   
   // release(&bcache.lock);
 
-  acquire(&(bcache.lock));
+  acquire(&(bcache.bucket_locks[hash_index]));
   b->refcnt--;
   if(b->refcnt == 0) {
+    int found = 0;
     // delete this buffer from the buckets
-    int hash_index = bcache_buckets_hash_function(b->blockno);
-    acquire(&(bcache.bucket_locks[hash_index]));
     struct buf *buf_iterator = bcache.buckets[hash_index];
     if(buf_iterator != 0) {
       if(buf_iterator == b) {
+        found = 1;
         bcache.buckets[hash_index] = b->next;
-        release(&(bcache.bucket_locks[hash_index]));
-        release(&(bcache.lock));
-        return;
       } else {
         while (buf_iterator->next != 0)
         {
           if(buf_iterator->next == b) {
+            found = 1;
             buf_iterator->next = b->next;
-            release(&(bcache.bucket_locks[hash_index]));
-            release(&(bcache.lock));
-            return;
+            break;
           }
           buf_iterator = buf_iterator->next;
         }
       }
     }
-    panic("Error: the allocated buffer NOT in bcache.buckets\n");
+    if(found == 0) {
+      panic("brelse: the allocated buffer NOT in bcache.buckets\n");
+    }
+    acquire(&(bcache.free_buffers_lock));
+    struct buf* b2 = bcache.free_buffers;
+    if(b2 == 0) {
+      bcache.free_buffers = b;
+      b->next = 0;
+    } else {
+      b->next = b2->next;
+      b2->next = b;
+    }
+    release(&(bcache.free_buffers_lock));
   }
-
-  release(&(bcache.lock));
+  release(&(bcache.bucket_locks[hash_index]));
 }
 
 
 // Question: I don't understand what bpin() and bunpin() are doing ???
 void
 bpin(struct buf *b) {
-  acquire(&bcache.lock);
+  int hash_index = bcache_buckets_hash_function(b->blockno);
+  // acquire(&bcache.lock);
+  // b->refcnt++;
+  // release(&bcache.lock);
+  acquire(&(bcache.bucket_locks[hash_index]));
   b->refcnt++;
-  release(&bcache.lock);
+  release(&(bcache.bucket_locks[hash_index]));
 }
 
 void
 bunpin(struct buf *b) {
-  acquire(&bcache.lock);
+  int hash_index = bcache_buckets_hash_function(b->blockno);
+  // acquire(&bcache.lock);
+  // b->refcnt++;
+  // release(&bcache.lock);
+  acquire(&(bcache.bucket_locks[hash_index]));
   b->refcnt--;
-  release(&bcache.lock);
+  release(&(bcache.bucket_locks[hash_index]));
 }
-
-

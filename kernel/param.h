@@ -10,5 +10,6 @@
 #define LOGSIZE      (MAXOPBLOCKS*3)  // max data blocks in on-disk log
 #define NBUF         (MAXOPBLOCKS*3)  // size of disk block cache
 #define NBUCKETS     13  // number of buckets in bcache
+#define LOCK_NAME_MAX_LENGTH 30  // the max length of a lock name
 #define FSSIZE       2000  // size of file system in blocks
 #define MAXPATH      128   // maximum file path name
