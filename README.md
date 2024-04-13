@@ -1,15 +1,3 @@
-\documentclass[12pt, letterpaper]{article}
-\title{My first LaTeX document}
-\author{Hubert Farnsworth\thanks{Funded by the Overleaf team.}}
-\date{August 2022}
-\begin{document}
-\maketitle
-Some of the \textbf{greatest}
-discoveries in \underline{science} 
-were made by \textbf{\textit{accident}}.
-\end{document}
-
-
 ## 2023/11/9 - 12/2: round 1, failure
 ## 2024/2/2 - 4/18: round 2
 ## ===============================
