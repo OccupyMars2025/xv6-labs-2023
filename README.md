@@ -81,7 +81,7 @@
 - [ ] (4/12 14:20 - ) nov 13, LEC 16: Virtual memory for applications
   - [ ] (4/12 14:20 - ) Preparation: Read Virtual Memory Primitives for User Programs (1991)
 ## ===========================
-
+# The operating system must make sure to provide adequate support for what the hardware is capable of.
 ## Q: How to read the source code ?
 ## A: Go to each branch, read the commits by OccupyMars2025
 ### =====================
