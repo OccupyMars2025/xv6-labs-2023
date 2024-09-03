@@ -81,8 +81,8 @@
 - [x] (4/12 14:20 - 4/17 11:30) nov 13, LEC 16: Virtual memory for applications
   - [x] (4/12 14:20 - 4/14 11:00) Preparation: Read Virtual Memory Primitives for User Programs (1991)
   - [x] (4/14 11:00 - 4/17 11:30) study source code, https://pdos.csail.mit.edu/6.1810/2023/lec/baker.c
-- [ ] (4/17 11:30 - ) nov 15, LEC 17 (rtm): OS Organization
-  - [ ] (4/17 11:30 - ) Preparation: Read The Performance of micro-Kernel-Based Systems (1997)
+- [ ] (9/3 21:50 - ) nov 15, LEC 17 (rtm): OS Organization
+  - [ ] (9/3 21:50 - ) Preparation: Read The Performance of micro-Kernel-Based Systems (1997)
 ## ===========================
 # The operating system must make sure to provide adequate support for what the hardware is capable of.
 ## Q: How to read the source code ?
